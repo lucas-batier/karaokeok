@@ -1,14 +1,8 @@
+import logo from './logo.svg';
 import './App.css';
-import React from "react";
-import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {BrowserView, MobileView} from "react-device-detect";
-import BrowserHomeView from "./container/BrowserApp/BrowserHomeView";
-import MobileHomeView from "./container/MobileApp/MobileHomeView";
-import BrowserArtistView from "./container/BrowserApp/BrowserArtistView";
-import MobileArtistSongsList from "./container/MobileApp/MobileArtistSongsList";
-import BrowserLegalMentionsView from "./container/BrowserApp/BrowserLegalMentionsView";
-import MobileLegalMentionsView from "./container/MobileApp/MobileLegalMentionsView";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 const theme = createTheme({
     palette: {
@@ -26,7 +20,22 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <p>aaa</p>
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <p>
+                        Edit <code>src/App.js</code> and save to reload.
+                    </p>
+                    <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >
+                        Learn React
+                    </a>
+                </header>
+            </div>
         </ThemeProvider>
     );
 }
