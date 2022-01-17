@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import {BrowserRouter, Route} from "react-router-dom";
 
 
 const theme = createTheme({
@@ -15,6 +16,10 @@ const theme = createTheme({
         },
     },
 });
+
+function Routes(props) {
+    return null;
+}
 
 function App() {
     return (
@@ -36,6 +41,20 @@ function App() {
                     </a>
                 </header>
             </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={
+                        <p>
+                            home
+                        </p>
+                    }/>
+                    <Route path="/songs" element={
+                        <p>
+                            songs
+                        </p>
+                    }/>
+                </Routes>
+            </BrowserRouter>
         </ThemeProvider>
     );
 }
