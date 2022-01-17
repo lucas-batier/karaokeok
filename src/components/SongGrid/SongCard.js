@@ -1,7 +1,6 @@
 import React, {useRef, useState} from "react";
 import {Box, ButtonBase, Card, Typography, useTheme} from "@mui/material";
 import {songShape} from "../../models/songs";
-import Image from 'material-ui-image'
 import ReactPlayer from "react-player/lazy";
 import screenfull from "screenfull";
 
@@ -39,13 +38,11 @@ function SongCard({song}) {
                 >
                     {!play ? (
                         <>
-                            <Image
+                            <img
                                 src={song.thumbnail_url}
                                 style={{width: 150, height: 150, opacity: 0.3}}
-                                disableError
-                                disableSpinner
-                                disableTransition
                                 color={theme.palette.background.paper}
+                                alt={song.title}
                             />
                             <Box position={"absolute"} textAlign={"center"}>
                                 <Typography style={{fontWeight: 600}}>
