@@ -40,21 +40,21 @@ function App() {
                         Learn React
                     </a>
                 </header>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={
+                            <p>
+                                home
+                            </p>
+                        }/>
+                        <Route path="/songs" element={
+                            <p>
+                                songs
+                            </p>
+                        }/>
+                    </Routes>
+                </BrowserRouter>
             </div>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={
-                        <p>
-                            home
-                        </p>
-                    }/>
-                    <Route path="/songs" element={
-                        <p>
-                            songs
-                        </p>
-                    }/>
-                </Routes>
-            </BrowserRouter>
         </ThemeProvider>
     );
 }
