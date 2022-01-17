@@ -26,60 +26,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={
-                        <>
-                            <BrowserView>
-                                <BrowserHomeView />
-                            </BrowserView>
-                            <MobileView>
-                                <MobileHomeView />
-                            </MobileView>
-                        </>
-                    }/>
-                    <Route path="/songs" element={
-                        <>
-                            <BrowserView>
-                                <BrowserArtistView />
-                            </BrowserView>
-                            <MobileView>
-                                <MobileArtistSongsList />
-                            </MobileView>
-                        </>
-                    }/>
-                    <Route path="/legals" element={
-                        <>
-                            <BrowserView>
-                                <BrowserLegalMentionsView />
-                            </BrowserView>
-                            <MobileView>
-                                <MobileLegalMentionsView />
-                            </MobileView>
-                        </>
-                    }/>
-                    {/*<Route path="/login" element={*/}
-                    {/*    <>*/}
-                    {/*        <BrowserView>*/}
-                    {/*            <BrowserLoginView />*/}
-                    {/*        </BrowserView>*/}
-                    {/*        <MobileView>*/}
-                    {/*            <MobileLoginView />*/}
-                    {/*        </MobileView>*/}
-                    {/*    </>*/}
-                    {/*}/>*/}
-                    {/*<Route path="/register" element={*/}
-                    {/*    <>*/}
-                    {/*        <BrowserView>*/}
-                    {/*            <BrowserRegisterView />*/}
-                    {/*        </BrowserView>*/}
-                    {/*        <MobileView>*/}
-                    {/*            <MobileRegisterView />*/}
-                    {/*        </MobileView>*/}
-                    {/*    </>*/}
-                    {/*}/>*/}
-                </Routes>
-            </BrowserRouter>
+            <p>aaa</p>
         </ThemeProvider>
     );
 }
