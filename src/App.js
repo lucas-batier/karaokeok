@@ -1,9 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import {BrowserRouter, Route} from "react-router-dom";
-
+import React from "react";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserView, MobileView} from "react-device-detect";
+import BrowserHomeView from "./container/BrowserApp/BrowserHomeView";
+import MobileHomeView from "./container/MobileApp/MobileHomeView";
+import BrowserArtistView from "./container/BrowserApp/BrowserArtistView";
+import MobileArtistSongsList from "./container/MobileApp/MobileArtistSongsList";
+import BrowserLegalMentionsView from "./container/BrowserApp/BrowserLegalMentionsView";
+import MobileLegalMentionsView from "./container/MobileApp/MobileLegalMentionsView";
 
 const theme = createTheme({
     palette: {
@@ -17,44 +22,64 @@ const theme = createTheme({
     },
 });
 
-function Routes(props) {
-    return null;
-}
-
 function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={
-                            <p>
-                                home
-                            </p>
-                        }/>
-                        <Route path="/songs" element={
-                            <p>
-                                songs
-                            </p>
-                        }/>
-                    </Routes>
-                </BrowserRouter>
-            </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={
+                        <>
+                            <BrowserView>
+                                <BrowserHomeView />
+                            </BrowserView>
+                            <MobileView>
+                                <MobileHomeView />
+                            </MobileView>
+                        </>
+                    }/>
+                    <Route path="/songs" element={
+                        <>
+                            <BrowserView>
+                                <BrowserArtistView />
+                            </BrowserView>
+                            <MobileView>
+                                <MobileArtistSongsList />
+                            </MobileView>
+                        </>
+                    }/>
+                    <Route path="/legals" element={
+                        <>
+                            <BrowserView>
+                                <BrowserLegalMentionsView />
+                            </BrowserView>
+                            <MobileView>
+                                <MobileLegalMentionsView />
+                            </MobileView>
+                        </>
+                    }/>
+                    {/*<Route path="/login" element={*/}
+                    {/*    <>*/}
+                    {/*        <BrowserView>*/}
+                    {/*            <BrowserLoginView />*/}
+                    {/*        </BrowserView>*/}
+                    {/*        <MobileView>*/}
+                    {/*            <MobileLoginView />*/}
+                    {/*        </MobileView>*/}
+                    {/*    </>*/}
+                    {/*}/>*/}
+                    {/*<Route path="/register" element={*/}
+                    {/*    <>*/}
+                    {/*        <BrowserView>*/}
+                    {/*            <BrowserRegisterView />*/}
+                    {/*        </BrowserView>*/}
+                    {/*        <MobileView>*/}
+                    {/*            <MobileRegisterView />*/}
+                    {/*        </MobileView>*/}
+                    {/*    </>*/}
+                    {/*}/>*/}
+                </Routes>
+            </BrowserRouter>
         </ThemeProvider>
     );
 }
