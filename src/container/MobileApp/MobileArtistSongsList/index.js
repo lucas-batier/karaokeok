@@ -18,7 +18,7 @@ function MobileArtistSongsList() {
     const onSearchSubmit = () => {
         setLoading(true);
 
-        Api.get('songs', {}, ['artist__name', 'title'], searchText)
+        Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
             .then(response => setSongs(response.data.results))
             .catch(response => console.error(response))
             .finally(() => { setLoading(false) });
@@ -27,7 +27,7 @@ function MobileArtistSongsList() {
     useEffect(() => {
         if (!delayed) {
             setTimeout(function delayHandler() {
-                Api.get('songs', {}, ['artist__name', 'title'], searchText)
+                Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
                     .then(response => setSongs(response.data.results))
                     .catch(response => console.error(response))
                     .finally(() => { setLoading(false); setDelayed(false); });

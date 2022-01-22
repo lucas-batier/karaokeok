@@ -6,16 +6,12 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class Api {
     constructor() {
-        this.apiUrl = process.env.REACT_APP_API_URL || '';
+        this.apiBaseUrl = process.env.REACT_APP_API_BASE_URL || '';
         this.token = sessionStorage.getItem('token') || localStorage.getItem('token') || null;
     }
 
-    async get(url, headers={}, filters=[], orders=[], search='', limit=1000, offset=0) {
-        const completeUrl = this.apiUrl + url
-        let completeHeaders = headers
-        if (this.token) {
-            completeHeaders = {"Authorization": `Token ${this.token}`, ...completeHeaders}
-        }
+    async get(url, filters=[], orders=[], search='', limit=1000, offset=0) {
+        const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
 
         const argFilters = Object.entries({title: 'Take'}).map(filter => filter.join('='));
         const argOrders = orders.length ? `ordering=${orders.join(',')}` : null;
@@ -24,17 +20,24 @@ class Api {
         // .filter(Boolean) avoid join on empty fields
         const args = [argFilters, argOrders, argSearch, argPagination].filter(Boolean).join('&');
 
-        return await axios.get(`${completeUrl}/?${args}`, completeHeaders);
+        return await axios({
+            url: `${url}/?${args}`,
+            method: 'get',
+            baseURL: this.apiBaseUrl,
+            headers: headers,
+        })
     }
 
-    async post(url, body={}, headers={}) {
-        const completeUrl = this.apiUrl + url
-        let completeHeaders = headers
-        if (this.token) {
-            completeHeaders = {"Authorization": `Token ${this.token}`, ...completeHeaders}
-        }
+    async post(url, data={}) {
+        const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
 
-        return await axios.post(completeUrl, body, completeHeaders);
+        return await axios({
+            url: url,
+            method: 'post',
+            baseURL: this.apiBaseUrl,
+            headers: headers,
+            data: data,
+        })
     }
 
     responseOk(response) {
