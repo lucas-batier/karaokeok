@@ -13,7 +13,7 @@ function MobileRegisterView() {
 
     return (
         <MobileApp title={'Créer un compte'}>
-            <Box mx={3}>
+            <Box mx={2} mt={3}>
                 <Paper style={{padding: theme.spacing(3)}}>
                     <RegisterForm />
                 </Paper>

@@ -13,6 +13,9 @@ import BrowserLoginView from "./container/BrowserApp/BrowserLoginView";
 import MobileLoginView from "./container/MobileApp/MobileLoginView";
 import BrowserRegisterView from "./container/BrowserApp/BrowserLoginView/BrowserRegisterView";
 import MobileRegisterView from "./container/MobileApp/MobileLoginView/MobileRegisterView";
+import MobileProfileView from "./container/MobileApp/MobileProfileView";
+import BrowserAccountView from "./container/BrowserApp/BrowserAccountView";
+import MobileAccountView from "./container/MobileApp/MobileAccountView";
 import userContext from "./contexts/userContext";
 import Api from "./libs/api";
 import {getCurrentUserFromStorage, setCurrentUserInStorage} from "./libs/user";
@@ -111,6 +114,23 @@ function App() {
                                 </BrowserView>
                                 <MobileView>
                                     <MobileRegisterView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/profile" element={
+                            <>
+                                <MobileView>
+                                    <MobileProfileView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/account" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserAccountView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileAccountView />
                                 </MobileView>
                             </>
                         }/>

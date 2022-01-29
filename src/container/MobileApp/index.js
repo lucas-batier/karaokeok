@@ -23,7 +23,6 @@ function MobileApp(props) {
             </Grid>
             <AppBar position="fixed" color="primary" sx={{top: 'auto', bottom: 0}}>
                 <Toolbar>
-                    <Box sx={{ flexGrow: 1 }} />
                     <ButtonBase component={"a"} href={"/"} disableTouchRipple>
                         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
                             <HomeRounded/>

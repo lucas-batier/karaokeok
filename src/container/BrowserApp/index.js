@@ -9,9 +9,8 @@ import {
     ListItemText, Typography,
     useTheme
 } from "@mui/material";
-import {HomeRounded, LibraryMusicRounded, LoginRounded, AccountCircleRounded} from "@mui/icons-material";
-import {withUser} from "../../contexts/userContext";
-import Truncate from "../../components/Truncate";
+import {HomeRounded, LibraryMusicRounded} from "@mui/icons-material";
+import UserLoginListItemButton from "../../components/UserLoginListItemButton";
 
 
 function BrowserApp(props) {
@@ -31,7 +30,7 @@ function BrowserApp(props) {
                 >
                     <List>
                         <ListItem>
-                            <Grid container flexDirection={"row"} spacing={2} alignItems={"center"} component={"a"} href={"/legals"}>
+                            <Grid container flexDirection={"row"} spacing={2} alignItems={"center"} component={"a"} href={"/"}>
                                 <Grid item>
                                     <img src={"logo512-white.png"} alt={"Karaoke OK"} height={36} />
                                 </Grid>
@@ -44,13 +43,21 @@ function BrowserApp(props) {
                                 </Grid>
                             </Grid>
                         </ListItem>
-                        <ListItemButton component={"a"} href={"/"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>
+                        <ListItemButton
+                            component={"a"}
+                            href={"/"}
+                            style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}
+                        >
                             <ListItemIcon>
                                 <HomeRounded />
                             </ListItemIcon>
                             <ListItemText primary={'Accueil'} style={{whiteSpace: "nowrap"}} />
                         </ListItemButton>
-                        <ListItemButton component={"a"} href={"/songs"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>
+                        <ListItemButton
+                            component={"a"}
+                            href={"/songs"}
+                            style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}
+                        >
                             <ListItemIcon>
                                 <LibraryMusicRounded />
                             </ListItemIcon>
@@ -62,25 +69,9 @@ function BrowserApp(props) {
                         {/*    </ListItemIcon>*/}
                         {/*    <ListItemText primary={'Vos playlists'} style={{whiteSpace: "nowrap"}} />*/}
                         {/*</ListItemButton>*/}
-                        <ListItemButton component={"a"} href={"/login"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>
-                            <ListItemIcon>
-                                <LoginRounded />
-                            </ListItemIcon>
-                            <ListItemText primary={'Se connecter'} style={{whiteSpace: "nowrap"}} />
-                        </ListItemButton>
                     </List>
                     <div style={{flex: 1}} />
-                    <List>
-                        <ListItem style={{margin: theme.spacing(1)}}>
-                            <ListItemIcon>
-                                <AccountCircleRounded />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={<Truncate>{props.user?.fullName}</Truncate>}
-                                style={{whiteSpace: "nowrap"}}
-                            />
-                        </ListItem>
-                    </List>
+                    <UserLoginListItemButton />
                 </Drawer>
             </Box>
             <Box
@@ -102,4 +93,4 @@ function BrowserApp(props) {
     );
 }
 
-export default withUser(BrowserApp);
+export default BrowserApp;

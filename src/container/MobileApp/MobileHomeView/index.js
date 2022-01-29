@@ -7,7 +7,7 @@ function MobileHomeView() {
     return (
         <MobileApp title={"KaraokeOK"}>
             <Box display={"flex"} justifyContent={"center"} m={3}>
-                <img className={'App-logo'} src={"logo512-white.png"} alt={"KaraokeOK"} />
+                <img className={'App-disclogo'} src={"disclogo512.png"} alt={"KaraokeOK"} />
             </Box>
         </MobileApp>
     );

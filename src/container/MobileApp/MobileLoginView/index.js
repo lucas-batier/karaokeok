@@ -13,7 +13,7 @@ function MobileLoginView() {
 
     return (
         <MobileApp title={'Connexion'}>
-            <Box mx={3}>
+            <Box mx={2} mt={3}>
                 <Paper style={{padding: theme.spacing(3)}}>
                     <LoginForm />
                 </Paper>
