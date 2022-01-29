@@ -14,11 +14,7 @@ import Api from "../../libs/api";
 async function handleConnectionButtonClick(username, password, remainConnection) {
     await Api.login(username, password, remainConnection)
         .then(() => window.location.replace('/'))
-        .catch(response => {
-            localStorage.setItem('token', '');
-            sessionStorage.setItem('token', '');
-            console.error(response);
-        });
+        .catch(response => {console.error(response)});
 }
 
 // @todo ajouter mot de passe oublié avec envoie d'email etc...

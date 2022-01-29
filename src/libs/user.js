@@ -28,4 +28,17 @@ function setCurrentUserInStorage(user) {
     localStorage.setItem('dateJoined', user.dateJoined);
 }
 
-export { getCurrentUserFromStorage, setCurrentUserInStorage };
+function removeCurrentUserFromStorage() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('username');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('email');
+    localStorage.removeItem('isActive');
+    localStorage.removeItem('isStaff');
+    localStorage.removeItem('isSuperuser');
+    localStorage.removeItem('lastLogin');
+    localStorage.removeItem('dateJoined');
+}
+
+export { getCurrentUserFromStorage, setCurrentUserInStorage, removeCurrentUserFromStorage };

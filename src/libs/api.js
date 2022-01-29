@@ -1,4 +1,5 @@
 import axios from "axios";
+import {removeCurrentUserFromStorage} from "./user";
 
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -45,6 +46,10 @@ class Api {
     }
 
     async login(username, password, remainConnection=true) {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        removeCurrentUserFromStorage();
+
         const response = await this.post(`/login/`, {"username": username, "password": password});
 
         if (this.responseOk(response)) {

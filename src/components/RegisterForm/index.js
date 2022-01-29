@@ -16,11 +16,7 @@ async function handleRegisterButtonClick(firstName, lastName, username, password
             if (Api.responseOk(response)) {
                 Api.login(username, password)
                     .then(() => window.location.replace('/'))
-                    .catch(response => {
-                        localStorage.setItem('token', '');
-                        sessionStorage.setItem('token', '');
-                        console.error(response);
-                    });
+                    .catch(response => {console.error(response)});
             }
         })
         .catch(response => console.error(response));
