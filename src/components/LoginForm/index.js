@@ -14,14 +14,18 @@ import Api from "../../libs/api";
 async function handleConnectionButtonClick(username, password, remainConnection) {
     await Api.login(username, password, remainConnection)
         .then(() => window.location.replace('/'))
-        .catch(response => console.error(response));
+        .catch(response => {
+            localStorage.setItem('token', '');
+            sessionStorage.setItem('token', '');
+            console.error(response);
+        });
 }
 
 // @todo ajouter mot de passe oublié avec envoie d'email etc...
 function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [remainConnection, setRemainConnection] = useState(false);
+    const [remainConnection, setRemainConnection] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = useCallback(
@@ -83,6 +87,7 @@ function LoginForm() {
                                     <Checkbox
                                         value={remainConnection}
                                         onChange={evt => setRemainConnection(evt.target.checked)}
+                                        defaultChecked
                                     />
                                 </Grid>
                                 <Grid item>

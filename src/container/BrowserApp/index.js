@@ -9,7 +9,7 @@ import {
     ListItemText, Typography,
     useTheme
 } from "@mui/material";
-import {HomeRounded, LibraryMusicRounded} from "@mui/icons-material";
+import {HomeRounded, LibraryMusicRounded, LoginRounded} from "@mui/icons-material";
 
 
 function BrowserApp(props) {
@@ -60,12 +60,12 @@ function BrowserApp(props) {
                         {/*    </ListItemIcon>*/}
                         {/*    <ListItemText primary={'Vos playlists'} />*/}
                         {/*</ListItemButton>*/}
-                        {/*<ListItemButton component={"a"} href={"/login"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>*/}
-                        {/*    <ListItemIcon>*/}
-                        {/*        <LoginRounded />*/}
-                        {/*    </ListItemIcon>*/}
-                        {/*    <ListItemText primary={'Se connecter'} />*/}
-                        {/*</ListItemButton>*/}
+                        <ListItemButton component={"a"} href={"/login"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>
+                            <ListItemIcon>
+                                <LoginRounded />
+                            </ListItemIcon>
+                            <ListItemText primary={'Se connecter'} />
+                        </ListItemButton>
                     </List>
                 </Drawer>
             </Box>

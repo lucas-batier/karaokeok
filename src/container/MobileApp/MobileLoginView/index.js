@@ -8,7 +8,7 @@ import {
 import LoginForm from "../../../components/LoginForm";
 
 
-function BrowserLoginView() {
+function MobileLoginView() {
     const theme = useTheme();
 
     return (
@@ -22,4 +22,4 @@ function BrowserLoginView() {
     );
 }
 
-export default BrowserLoginView;
+export default MobileLoginView;

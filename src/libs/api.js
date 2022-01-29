@@ -44,8 +44,8 @@ class Api {
         return Boolean(response.status >= 200 && response.status < 300);
     }
 
-    async login(username, password, remainConnection) {
-        const response = await axios.post(`/login/`, {"username": username, "password": password});
+    async login(username, password, remainConnection=true) {
+        const response = await this.post(`/login/`, {"username": username, "password": password});
 
         if (this.responseOk(response)) {
             if (remainConnection) {
@@ -59,7 +59,7 @@ class Api {
     }
 
     async register(firstName, lastName, username, password, passwordConfirmation) {
-        const response = await axios.post(`/register/`,
+        const response = await this.post(`/register/`,
             {
                 "first_name": firstName,
                 "last_name": lastName,
