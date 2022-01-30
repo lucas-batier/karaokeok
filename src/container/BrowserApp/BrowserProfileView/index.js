@@ -1,5 +1,5 @@
 import React from "react";
-import MobileApp from "../index";
+import BrowserApp from "../index";
 import {
     Box,
     Paper,
@@ -10,22 +10,22 @@ import {withUser} from "../../../contexts/userContext";
 import {userShape} from "../../../models/users";
 
 
-function MobileProfileView({user}) {
+function BrowserProfileView({user}) {
     const theme = useTheme();
 
     return (
-        <MobileApp title={user?.fullName}>
-            <Box mx={2} mt={3}>
-                <Paper style={{padding: theme.spacing(3)}}>
+        <BrowserApp title={user?.fullName}>
+            <Box mx={36}>
+                <Paper style={{padding: theme.spacing(6)}}>
                     <ProfileForm />
                 </Paper>
             </Box>
-        </MobileApp>
+        </BrowserApp>
     );
 }
 
-export default withUser(MobileProfileView);
+export default withUser(BrowserProfileView);
 
-MobileProfileView.propTypes = {
+BrowserProfileView.propTypes = {
     user: userShape,
 }

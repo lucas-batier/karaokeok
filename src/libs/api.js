@@ -41,6 +41,18 @@ class Api {
         })
     }
 
+    async patch(url, data={}) {
+        const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
+
+        return await axios({
+            url: url,
+            method: 'patch',
+            baseURL: this.apiBaseUrl,
+            headers: headers,
+            data: data,
+        })
+    }
+
     responseOk(response) {
         return Boolean(response.status >= 200 && response.status < 300);
     }

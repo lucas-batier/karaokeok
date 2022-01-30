@@ -13,8 +13,8 @@ import ErrorsLabel from "../ErrorsLabel";
 
 
 async function handleConnectionButtonClick(username, password, remainConnection) {
-    await Api.login(username, password, remainConnection)
-        .then(() => window.location.replace('/'))
+    return await Api.login(username, password, remainConnection)
+        .then()
         .catch(error => { throw error.response.data });
 }
 
@@ -31,7 +31,7 @@ function LoginForm() {
             evt.preventDefault();
 
             handleConnectionButtonClick(email, password, remainConnection)
-                .then()
+                .then(() => window.location.replace('/'))
                 .catch(errors => { setErrors(errors) });
         },
         [email, password, remainConnection]
@@ -42,88 +42,86 @@ function LoginForm() {
     }
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <TextField
-                            type={"email"}
-                            variant={"outlined"}
-                            placeholder={'karaoke@ok.com'}
-                            label={'E-mail'}
-                            error={Boolean(errors?.non_field_errors)}
-                            helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
-                            required
-                            fullWidth
-                            autoFocus
-                            value={email}
-                            onChange={evt => setEmail(evt.target.value)}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            type={showPassword ? "text" : "password"}
-                            variant={"outlined"}
-                            label={'Mot de passe'}
-                            error={Boolean(errors?.non_field_errors)}
-                            helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
-                            required
-                            fullWidth
-                            value={password}
-                            onChange={evt => setPassword(evt.target.value)}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            onClick={handleClickShowPassword}
-                                        >
-                                            {showPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container justifyContent={"space-between"} alignItems={"center"} spacing={6}>
-                            <Grid item>
-                                <Grid container alignItems={"center"} spacing={1}>
-                                    <Grid item>
-                                        <Checkbox
-                                            value={remainConnection}
-                                            onChange={evt => setRemainConnection(evt.target.checked)}
-                                            defaultChecked
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        Rester connecté
-                                    </Grid>
+        <form onSubmit={onSubmit}>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <TextField
+                        type={"email"}
+                        variant={"outlined"}
+                        placeholder={'karaoke@ok.com'}
+                        label={'E-mail'}
+                        error={Boolean(errors?.non_field_errors)}
+                        helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
+                        required
+                        fullWidth
+                        autoFocus
+                        value={email}
+                        onChange={evt => setEmail(evt.target.value)}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        type={showPassword ? "text" : "password"}
+                        variant={"outlined"}
+                        label={'Mot de passe'}
+                        error={Boolean(errors?.non_field_errors)}
+                        helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
+                        required
+                        fullWidth
+                        value={password}
+                        onChange={evt => setPassword(evt.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {showPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid container justifyContent={"space-between"} alignItems={"center"} spacing={6}>
+                        <Grid item>
+                            <Grid container alignItems={"center"} spacing={1}>
+                                <Grid item>
+                                    <Checkbox
+                                        value={remainConnection}
+                                        onChange={evt => setRemainConnection(evt.target.checked)}
+                                        defaultChecked
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    Rester connecté
                                 </Grid>
                             </Grid>
-                            <Grid item xs>
-                                <Button type={"submit"} variant={"contained"} fullWidth>
-                                    Se connecter
-                                </Button>
-                            </Grid>
+                        </Grid>
+                        <Grid item xs>
+                            <Button type={"submit"} variant={"contained"} fullWidth>
+                                Se connecter
+                            </Button>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Divider />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button
-                            variant={"contained"}
-                            color={"secondary"}
-                            fullWidth
-                            component={"a"}
-                            href={"/register"}
-                        >
-                            Créer un compte
-                        </Button>
-                    </Grid>
                 </Grid>
-            </form>
-        </>
+                <Grid item xs={12}>
+                    <Divider />
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                        variant={"contained"}
+                        color={"secondary"}
+                        fullWidth
+                        component={"a"}
+                        href={"/register"}
+                    >
+                        Créer un compte
+                    </Button>
+                </Grid>
+            </Grid>
+        </form>
     );
 }
 

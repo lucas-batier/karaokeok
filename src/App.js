@@ -13,16 +13,17 @@ import BrowserLoginView from "./container/BrowserApp/BrowserLoginView";
 import MobileLoginView from "./container/MobileApp/MobileLoginView";
 import BrowserRegisterView from "./container/BrowserApp/BrowserLoginView/BrowserRegisterView";
 import MobileRegisterView from "./container/MobileApp/MobileLoginView/MobileRegisterView";
-import MobileProfileView from "./container/MobileApp/MobileProfileView";
+import MobileSettingsView from "./container/MobileApp/MobileSettingsView";
 import BrowserAccountView from "./container/BrowserApp/BrowserAccountView";
 import MobileAccountView from "./container/MobileApp/MobileAccountView";
 import userContext from "./contexts/userContext";
 import Api from "./libs/api";
 import {getCurrentUserFromStorage, setCurrentUserInStorage} from "./libs/user";
 import User from "./models/users";
-import TeasingView from "./components/TeasingView";
 import BrowserTeasingView from "./container/BrowserApp/BrowserTeasingView";
 import MobileTeasingView from "./container/MobileApp/MobileTeasingView";
+import BrowserProfileView from "./container/BrowserApp/BrowserProfileView";
+import MobileProfileView from "./container/MobileApp/MobileProfileView";
 
 const theme = createTheme({
     palette: {
@@ -38,7 +39,7 @@ const theme = createTheme({
 
 async function getCurrentUser() {
     return await Api.get('users/me')
-        .then(response => {return response.data})
+        .then(response => { return response.data })
         .catch(response => console.error(response));
 }
 
@@ -136,10 +137,10 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
-                        <Route path="/profile" element={
+                        <Route path="/settings" element={
                             <>
                                 <MobileView>
-                                    <MobileProfileView />
+                                    <MobileSettingsView />
                                 </MobileView>
                             </>
                         }/>
@@ -150,6 +151,16 @@ function App() {
                                 </BrowserView>
                                 <MobileView>
                                     <MobileAccountView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/profile" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserProfileView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileProfileView />
                                 </MobileView>
                             </>
                         }/>

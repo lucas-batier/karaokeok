@@ -12,7 +12,7 @@ import ErrorsLabel from "../ErrorsLabel";
 
 
 async function handleRegisterButtonClick(firstName, lastName, username, password, passwordConfirmation) {
-    await Api.register(firstName, lastName, username, password, passwordConfirmation)
+    return await Api.register(firstName, lastName, username, password, passwordConfirmation)
         .then(response => {
             if (Api.responseOk(response)) {
                 Api.login(username, password)
