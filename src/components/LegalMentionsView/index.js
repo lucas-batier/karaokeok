@@ -5,6 +5,9 @@ import {Link, Typography} from "@mui/material";
 function LegalMentionsView() {
     return (
         <>
+            <Typography mb={4}>Version&nbsp;
+                <Typography component={"span"} fontStyle="italic">{process.env.REACT_APP_VERSION}</Typography>
+            </Typography>
             <Typography variant={"h5"}>Définitions</Typography>
             <p><b>Client :</b> tout professionnel ou personne physique capable au sens des articles 1123 et suivants du Code civil, ou personne morale, qui visite le Site objet des présentes conditions générales.<br/>
                 <b>Prestations et Services :</b> <Link href="https://karaokeok.herokuapp.com">https://karaokeok.herokuapp.com</Link> met à disposition des Clients :</p>

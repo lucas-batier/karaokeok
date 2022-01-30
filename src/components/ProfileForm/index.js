@@ -45,8 +45,6 @@ function ProfileForm({user}) {
         [firstName, lastName, email, user]
     );
 
-    console.log(user);
-
     return (
         <form onSubmit={onSubmit}>
             <Grid container spacing={3}>
@@ -60,7 +58,7 @@ function ProfileForm({user}) {
                         helperText={errors?.first_name && <ErrorsLabel errors={errors.first_name} />}
                         fullWidth
                         autoFocus
-                        value={firstName}
+                        value={firstName || ''}
                         onChange={evt => setFirstName(evt.target.value)}
                     />
                 </Grid>
@@ -73,7 +71,7 @@ function ProfileForm({user}) {
                         error={Boolean(errors?.last_name)}
                         helperText={errors?.last_name && <ErrorsLabel errors={errors.last_name} />}
                         fullWidth
-                        value={lastName}
+                        value={lastName || ''}
                         onChange={evt => setLastName(evt.target.value)}
                     />
                 </Grid>
@@ -91,7 +89,7 @@ function ProfileForm({user}) {
                             </>
                         }
                         fullWidth
-                        value={email}
+                        value={email || ''}
                         onChange={evt => setEmail(evt.target.value)}
                     />
                 </Grid>
