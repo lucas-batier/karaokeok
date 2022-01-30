@@ -24,6 +24,8 @@ import BrowserTeasingView from "./container/BrowserApp/BrowserTeasingView";
 import MobileTeasingView from "./container/MobileApp/MobileTeasingView";
 import BrowserProfileView from "./container/BrowserApp/BrowserProfileView";
 import MobileProfileView from "./container/MobileApp/MobileProfileView";
+import BrowserResetPasswordView from "./container/BrowserApp/BrowserResetPasswordView";
+import MobileResetPasswordView from "./container/MobileApp/MobileResetPasswordView";
 
 const theme = createTheme({
     palette: {
@@ -164,6 +166,16 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
+                        <Route path="/reset_password" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserResetPasswordView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileResetPasswordView />
+                                </MobileView>
+                            </>
+                        }/>
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
@@ -172,3 +184,5 @@ function App() {
 }
 
 export default App;
+
+export {theme};

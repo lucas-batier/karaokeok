@@ -5,21 +5,21 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import LoginForm from "../../../components/forms/LoginForm";
+import ResetPasswordForm from "../../../components/forms/ResetPasswordForm";
 
 
-function BrowserLoginView() {
+function BrowserResetPasswordView() {
     const theme = useTheme();
 
     return (
-        <BrowserApp title={'Connexion'}>
+        <BrowserApp title={'Mot de passe oublié'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
-                    <LoginForm />
+                    <ResetPasswordForm />
                 </Paper>
             </Box>
         </BrowserApp>
     );
 }
 
-export default BrowserLoginView;
+export default BrowserResetPasswordView;

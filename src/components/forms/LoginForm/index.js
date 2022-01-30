@@ -6,10 +6,12 @@ import {
     IconButton,
     InputAdornment,
     TextField,
+    ButtonBase,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
-import Api from "../../libs/api";
-import ErrorsLabel from "../ErrorsLabel";
+import Api from "../../../libs/api";
+import ErrorsLabel from "../../ErrorsLabel";
+import {useLinkStyles} from "../../../styles/link";
 
 
 async function handleConnectionButtonClick(username, password, remainConnection) {
@@ -20,6 +22,8 @@ async function handleConnectionButtonClick(username, password, remainConnection)
 
 // @todo ajouter mot de passe oublié avec envoie d'email etc...
 function LoginForm() {
+    const linkClasses = useLinkStyles();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remainConnection, setRemainConnection] = useState(true);
@@ -82,6 +86,9 @@ function LoginForm() {
                             ),
                         }}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <ButtonBase component={"a"} href={"/reset_password"} className={linkClasses.primary}>Mot de passe oublié</ButtonBase>
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container justifyContent={"space-between"} alignItems={"center"} spacing={6}>

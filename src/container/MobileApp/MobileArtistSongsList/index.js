@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import MobileApp from "../index";
 import {Box, Grid, Typography} from "@mui/material";
-import SearchForm from "../../../components/SearchForm";
+import SearchForm from "../../../components/forms/SearchForm";
 import Api from "../../../libs/api";
 import SongList from "../../../components/SongList";
 

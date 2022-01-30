@@ -7,11 +7,11 @@ import {
     TextField,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
-import Api from "../../libs/api";
-import ErrorsLabel from "../ErrorsLabel";
+import Api from "../../../libs/api";
+import ErrorsLabel from "../../ErrorsLabel";
 
 
-async function handleRegisterButtonClick(firstName, lastName, username, password, passwordConfirmation) {
+async function handleClick(firstName, lastName, username, password, passwordConfirmation) {
     return await Api.register(firstName, lastName, username, password, passwordConfirmation)
         .then(response => {
             if (Api.responseOk(response)) {
@@ -36,7 +36,7 @@ function RegisterForm() {
         (evt) => {
             evt.preventDefault();
 
-            handleRegisterButtonClick(firstName, lastName, email, password, passwordConfirmation)
+            handleClick(firstName, lastName, email, password, passwordConfirmation)
                 .then()
                 .catch(errors => { setErrors(errors) });
         },
@@ -138,7 +138,7 @@ function RegisterForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <Button type={"submit"} variant={"contained"} fullWidth>
-                        Créer son compte
+                        Créer un compte
                     </Button>
                 </Grid>
             </Grid>

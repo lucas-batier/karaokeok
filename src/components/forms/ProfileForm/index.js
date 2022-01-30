@@ -4,11 +4,11 @@ import {
     Grid,
     TextField,
 } from "@mui/material";
-import Api from "../../libs/api";
-import ErrorsLabel from "../ErrorsLabel";
-import {withUser} from "../../contexts/userContext";
-import User, {userShape} from "../../models/users";
-import {setCurrentUserInStorage} from "../../libs/user";
+import Api from "../../../libs/api";
+import ErrorsLabel from "../../ErrorsLabel";
+import {withUser} from "../../../contexts/userContext";
+import User, {userShape} from "../../../models/users";
+import {setCurrentUserInStorage} from "../../../libs/user";
 
 
 async function handleClick(id, firstName, lastName, username) {

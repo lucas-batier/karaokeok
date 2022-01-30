@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Box, Grid, Typography} from "@mui/material";
 import BrowserApp from "../index";
-import SearchForm from "../../../components/SearchForm";
+import SearchForm from "../../../components/forms/SearchForm";
 import Api from "../../../libs/api";
 import SongGrid from "../../../components/SongGrid";
 

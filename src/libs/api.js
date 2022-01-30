@@ -14,7 +14,7 @@ class Api {
     async get(url, filters=[], orders=[], search='', limit=1000, offset=0) {
         const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
 
-        const argFilters = Object.entries({title: 'Take'}).map(filter => filter.join('='));
+        const argFilters = Object.entries(filters).map(filter => filter.join('='));
         const argOrders = orders.length ? `ordering=${orders.join(',')}` : null;
         const argSearch = search ? `search=${search}` : null;
         const argPagination = `limit=${limit}&offset=${offset}`;
@@ -84,6 +84,18 @@ class Api {
                 "email": username,
                 "password": password,
                 "password_confirmation": passwordConfirmation,
+            }
+        );
+
+        return response;
+    }
+
+    async sendMail(to_email, subject, body) {
+        const response = await this.post(`/send_mail/`,
+            {
+                "to_email": to_email,
+                "subject": subject,
+                "body": body,
             }
         );
 
