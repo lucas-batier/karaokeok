@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../libs/api";
+import ErrorsLabel from "../ErrorsLabel";
 
 
 async function handleRegisterButtonClick(firstName, lastName, username, password, passwordConfirmation) {
@@ -16,10 +17,10 @@ async function handleRegisterButtonClick(firstName, lastName, username, password
             if (Api.responseOk(response)) {
                 Api.login(username, password)
                     .then(() => window.location.replace('/'))
-                    .catch(response => {console.error(response)});
+                    .catch(error => { throw error.response.data });
             }
         })
-        .catch(response => console.error(response));
+        .catch(error => { throw error.response.data });
 }
 
 function RegisterForm() {
@@ -29,12 +30,15 @@ function RegisterForm() {
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
-            handleRegisterButtonClick(firstName, lastName, email, password, passwordConfirmation);
+            handleRegisterButtonClick(firstName, lastName, email, password, passwordConfirmation)
+                .then()
+                .catch(errors => { setErrors(errors) });
         },
         [firstName, lastName, email, password, passwordConfirmation]
     );
@@ -53,6 +57,8 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'Freddy'}
                         label={'Prénom'}
+                        error={Boolean(errors?.first_name)}
+                        helperText={errors?.first_name && <ErrorsLabel errors={errors.first_name} />}
                         required
                         fullWidth
                         autoFocus
@@ -66,6 +72,8 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'Mercury'}
                         label={'Nom'}
+                        error={Boolean(errors?.last_name)}
+                        helperText={errors?.last_name && <ErrorsLabel errors={errors.last_name} />}
                         required
                         fullWidth
                         value={lastName}
@@ -78,6 +86,13 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'E-mail'}
+                        error={Boolean(errors?.email || errors?.username)}
+                        helperText={
+                            <>
+                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
+                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
+                            </>
+                        }
                         required
                         fullWidth
                         value={email}
@@ -89,6 +104,8 @@ function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Mot de passe'}
+                        error={Boolean(errors?.password)}
+                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
                         fullWidth
                         value={password}
@@ -111,6 +128,8 @@ function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Confirmation'}
+                        error={Boolean(errors?.password)}
+                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
                         fullWidth
                         value={passwordConfirmation}

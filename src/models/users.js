@@ -23,15 +23,15 @@ class User {
 export default User;
 
 export const userShape = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    username: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
     fullName: PropTypes.string,
-    email: PropTypes.string.isRequired,
-    isActive: PropTypes.bool.isRequired,
-    isStaff: PropTypes.bool.isRequired,
-    isSuperuser: PropTypes.bool.isRequired,
-    lastLogin: PropTypes.string.isRequired,
-    dateJoined: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    isActive: PropTypes.bool,
+    isStaff: PropTypes.bool,
+    isSuperuser: PropTypes.bool,
+    lastLogin: PropTypes.string,
+    dateJoined: PropTypes.string,
 });
