@@ -20,6 +20,9 @@ import userContext from "./contexts/userContext";
 import Api from "./libs/api";
 import {getCurrentUserFromStorage, setCurrentUserInStorage} from "./libs/user";
 import User from "./models/users";
+import TeasingView from "./components/TeasingView";
+import BrowserTeasingView from "./container/BrowserApp/BrowserTeasingView";
+import MobileTeasingView from "./container/MobileApp/MobileTeasingView";
 
 const theme = createTheme({
     palette: {
@@ -60,6 +63,22 @@ function App() {
             }
         }
     }, [setUser]);
+
+    const production = process.env.NODE_ENV === 'production';
+
+    if (production) {
+        return (
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <BrowserView>
+                    <BrowserTeasingView />
+                </BrowserView>
+                <MobileView>
+                    <MobileTeasingView />
+                </MobileView>
+            </ThemeProvider>
+        )
+    }
 
     return (
         <userContext.Provider value={user}>
