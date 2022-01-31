@@ -88,7 +88,7 @@ function LoginForm() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <ButtonBase component={"a"} href={"/reset_password"} className={linkClasses.primary}>Mot de passe oublié</ButtonBase>
+                    <ButtonBase component={"a"} href={"/send_reset_password"} className={linkClasses.primary}>Mot de passe oublié</ButtonBase>
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container justifyContent={"space-between"} alignItems={"center"} spacing={6}>

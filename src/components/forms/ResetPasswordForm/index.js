@@ -13,7 +13,7 @@ async function handleClick(email, emailConfirmation) {
         throw {email: ['The email adresses doesn\'t match.']};
     }
 
-    const response = await Api.get('users', {username: email})
+    const response = await Api.get('api/users', {username: email})
         .then(response => { return response })
         .catch(error => { throw error.response.data });
 
@@ -25,9 +25,7 @@ async function handleClick(email, emailConfirmation) {
         throw {username: ['No user exists with this username.']};
     }
 
-    return await Api.sendMail(email, 'Renvoie des accès', 'Coucou')
-        .then(response => { return response.data })
-        .catch(error => { throw error.response.data });
+    return 'sendmail'; // @todo send mail or handle reset password
 }
 
 function ResetPasswordForm() {

@@ -9,6 +9,7 @@ import {
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
+import {useParams} from "react-router-dom";
 
 
 async function handleClick(oldPassword, password, passwordConfirmation) {
@@ -22,6 +23,9 @@ function ChangePasswordForm() {
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const { token } = useParams();
+
+    console.log(token);
 
     const onSubmit = useCallback(
         (evt) => {

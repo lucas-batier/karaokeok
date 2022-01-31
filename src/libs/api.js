@@ -62,7 +62,7 @@ class Api {
         sessionStorage.removeItem('token');
         removeCurrentUserFromStorage();
 
-        const response = await this.post(`/login/`, {"username": username, "password": password});
+        const response = await this.post(`api/login/`, {"username": username, "password": password});
 
         if (this.responseOk(response)) {
             if (remainConnection) {
@@ -76,7 +76,7 @@ class Api {
     }
 
     async register(firstName, lastName, username, password, passwordConfirmation) {
-        const response = await this.post(`/register/`,
+        const response = await this.post(`api/register/`,
             {
                 "first_name": firstName,
                 "last_name": lastName,
@@ -84,18 +84,6 @@ class Api {
                 "email": username,
                 "password": password,
                 "password_confirmation": passwordConfirmation,
-            }
-        );
-
-        return response;
-    }
-
-    async sendMail(to_email, subject, body) {
-        const response = await this.post(`/send_mail/`,
-            {
-                "to_email": to_email,
-                "subject": subject,
-                "body": body,
             }
         );
 

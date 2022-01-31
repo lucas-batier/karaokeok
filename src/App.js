@@ -42,7 +42,7 @@ const theme = createTheme({
 });
 
 async function getCurrentUser() {
-    return await Api.get('users/me')
+    return await Api.get('api/users/me')
         .then(response => { return response.data })
         .catch(response => console.error(response));
 }
@@ -174,7 +174,7 @@ function App() {
                                 </>
                             }/>
                         }
-                        <Route path="/reset_password" element={
+                        <Route path="/send_reset_password" element={
                             <>
                                 <BrowserView>
                                     <BrowserResetPasswordView />
@@ -184,18 +184,16 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
-                        {user &&
-                            <Route path="/change_password" element={
-                                <>
-                                    <BrowserView>
-                                        <BrowserChangePasswordView/>
-                                    </BrowserView>
-                                    <MobileView>
-                                        <MobileChangePasswordView/>
-                                    </MobileView>
-                                </>
-                            }/>
-                        }
+                        <Route path="/reset_password/:token" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserChangePasswordView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileChangePasswordView />
+                                </MobileView>
+                            </>
+                        }/>
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
