@@ -184,7 +184,7 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
-                        <Route path="/reset_password/:token" element={
+                        <Route path="/reset_password:token" element={
                             <>
                                 <BrowserView>
                                     <BrowserChangePasswordView />
