@@ -13,7 +13,7 @@ function MobileApp(props) {
     return (
         <Grid container>
             <Grid item my={2} mx={2} xs={12}>
-                <Typography variant={"h5"}>
+                <Typography variant={"h2"}>
                     {props.title}
                 </Typography>
             </Grid>
