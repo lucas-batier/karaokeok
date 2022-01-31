@@ -26,6 +26,8 @@ import BrowserProfileView from "./container/BrowserApp/BrowserProfileView";
 import MobileProfileView from "./container/MobileApp/MobileProfileView";
 import BrowserResetPasswordView from "./container/BrowserApp/BrowserResetPasswordView";
 import MobileResetPasswordView from "./container/MobileApp/MobileResetPasswordView";
+import BrowserChangePasswordView from "./container/BrowserApp/BrowserChangePasswordView";
+import MobileChangePasswordView from "./container/MobileApp/MobileChangePasswordView";
 
 const theme = createTheme({
     palette: {
@@ -139,33 +141,39 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
-                        <Route path="/settings" element={
-                            <>
-                                <MobileView>
-                                    <MobileSettingsView />
-                                </MobileView>
-                            </>
-                        }/>
-                        <Route path="/account" element={
-                            <>
-                                <BrowserView>
-                                    <BrowserAccountView />
-                                </BrowserView>
-                                <MobileView>
-                                    <MobileAccountView />
-                                </MobileView>
-                            </>
-                        }/>
-                        <Route path="/profile" element={
-                            <>
-                                <BrowserView>
-                                    <BrowserProfileView />
-                                </BrowserView>
-                                <MobileView>
-                                    <MobileProfileView />
-                                </MobileView>
-                            </>
-                        }/>
+                        {user &&
+                            <Route path="/settings" element={
+                                <>
+                                    <MobileView>
+                                        <MobileSettingsView/>
+                                    </MobileView>
+                                </>
+                            }/>
+                        }
+                        {user &&
+                            <Route path="/account" element={
+                                <>
+                                    <BrowserView>
+                                        <BrowserAccountView/>
+                                    </BrowserView>
+                                    <MobileView>
+                                        <MobileAccountView/>
+                                    </MobileView>
+                                </>
+                            }/>
+                        }
+                        {user &&
+                            <Route path="/profile" element={
+                                <>
+                                    <BrowserView>
+                                        <BrowserProfileView/>
+                                    </BrowserView>
+                                    <MobileView>
+                                        <MobileProfileView/>
+                                    </MobileView>
+                                </>
+                            }/>
+                        }
                         <Route path="/reset_password" element={
                             <>
                                 <BrowserView>
@@ -176,6 +184,18 @@ function App() {
                                 </MobileView>
                             </>
                         }/>
+                        {user &&
+                            <Route path="/change_password" element={
+                                <>
+                                    <BrowserView>
+                                        <BrowserChangePasswordView/>
+                                    </BrowserView>
+                                    <MobileView>
+                                        <MobileChangePasswordView/>
+                                    </MobileView>
+                                </>
+                            }/>
+                        }
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>

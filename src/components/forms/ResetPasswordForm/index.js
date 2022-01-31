@@ -89,7 +89,7 @@ function ResetPasswordForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <Button type={"submit"} variant={"contained"} fullWidth>
-                        Renvoyer les accès
+                        Envoyer
                     </Button>
                 </Grid>
             </Grid>

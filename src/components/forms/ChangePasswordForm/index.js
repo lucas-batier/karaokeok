@@ -11,24 +11,15 @@ import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
 
 
-async function handleClick(firstName, lastName, username, password, passwordConfirmation) {
-    return await Api.register(firstName, lastName, username, password, passwordConfirmation)
-        .then(response => {
-            if (Api.responseOk(response)) {
-                Api.login(username, password)
-                    .then(() => window.location.replace('/'))
-                    .catch(error => { throw error.response.data });
-            }
-        })
-        .catch(error => { throw error.response.data });
+async function handleClick(oldPassword, password, passwordConfirmation) {
+    return 'ok';
 }
 
-function RegisterForm() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
+function ChangePasswordForm() {
+    const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [showOldPassword, setShowOldPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -36,12 +27,16 @@ function RegisterForm() {
         (evt) => {
             evt.preventDefault();
 
-            handleClick(firstName, lastName, email, password, passwordConfirmation)
+            handleClick(oldPassword, password, passwordConfirmation)
                 .then()
                 .catch(errors => { setErrors(errors) });
         },
-        [firstName, lastName, email, password, passwordConfirmation]
+        [oldPassword, password, passwordConfirmation]
     );
+
+    const handleClickShowOldPassword = useCallback(() => {
+        setShowOldPassword(!showOldPassword);
+    }, [showOldPassword]);
 
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword);
@@ -53,57 +48,33 @@ function RegisterForm() {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
-                        type={"text"}
+                        type={showOldPassword ? "text" : "password"}
                         variant={"outlined"}
-                        placeholder={'Freddy'}
-                        label={'Prénom'}
-                        error={Boolean(errors?.first_name)}
-                        helperText={errors?.first_name && <ErrorsLabel errors={errors.first_name} />}
+                        label={'Ancien mot de passe'}
+                        error={Boolean(errors?.password)}
+                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
                         fullWidth
-                        autoFocus
-                        value={firstName}
-                        onChange={evt => setFirstName(evt.target.value)}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        type={"text"}
-                        variant={"outlined"}
-                        placeholder={'Mercury'}
-                        label={'Nom'}
-                        error={Boolean(errors?.last_name)}
-                        helperText={errors?.last_name && <ErrorsLabel errors={errors.last_name} />}
-                        required
-                        fullWidth
-                        value={lastName}
-                        onChange={evt => setLastName(evt.target.value)}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        type={"email"}
-                        variant={"outlined"}
-                        placeholder={'karaoke@ok.com'}
-                        label={'E-mail'}
-                        error={Boolean(errors?.email || errors?.username)}
-                        helperText={
-                            <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
-                            </>
-                        }
-                        required
-                        fullWidth
-                        value={email}
-                        onChange={evt => setEmail(evt.target.value)}
+                        value={oldPassword}
+                        onChange={evt => setOldPassword(evt.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowOldPassword}
+                                    >
+                                        {showOldPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
-                        label={'Mot de passe'}
+                        label={'Nouveau mot de passe'}
                         error={Boolean(errors?.password)}
                         helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
@@ -138,7 +109,7 @@ function RegisterForm() {
                 </Grid>
                 <Grid item xs={12}>
                     <Button type={"submit"} variant={"contained"} fullWidth>
-                        Créer
+                        Modifier
                     </Button>
                 </Grid>
             </Grid>
@@ -146,4 +117,4 @@ function RegisterForm() {
     );
 }
 
-export default RegisterForm;
+export default ChangePasswordForm;
