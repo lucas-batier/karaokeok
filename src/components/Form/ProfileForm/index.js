@@ -5,6 +5,7 @@ import {
     TextField,
     Snackbar,
     Alert,
+    CircularProgress,
 } from "@mui/material";
 import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
@@ -23,6 +24,7 @@ function ProfileForm({user}) {
     const [firstName, setFirstName] = useState(user?.firstName);
     const [lastName, setLastName] = useState(user?.lastName);
     const [email, setEmail] = useState(user?.username);
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
@@ -36,6 +38,7 @@ function ProfileForm({user}) {
         (evt) => {
             evt.preventDefault();
 
+            setLoading(true);
             setErrors({});
 
             handleClick(user?.id, firstName, lastName, email)
@@ -45,7 +48,8 @@ function ProfileForm({user}) {
 
                     window.location.replace('/');
                 })
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .finally(() => setLoading(false));
         },
         [firstName, lastName, email, user]
     );
@@ -101,8 +105,8 @@ function ProfileForm({user}) {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button type={"submit"} variant={"contained"} fullWidth>
-                        Modifier
+                    <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
+                        {loading ? <CircularProgress size={"2rem"} /> : 'Modifier'}
                     </Button>
                 </Grid>
             </Grid>

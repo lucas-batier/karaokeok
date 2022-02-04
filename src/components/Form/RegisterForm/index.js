@@ -7,6 +7,7 @@ import {
     TextField,
     Snackbar,
     Alert,
+    CircularProgress,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
@@ -32,6 +33,7 @@ function RegisterForm() {
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
@@ -39,11 +41,13 @@ function RegisterForm() {
         (evt) => {
             evt.preventDefault();
 
+            setLoading(true);
             setErrors({});
 
             handleClick(firstName, lastName, email, password, passwordConfirmation)
                 .then()
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .finally(() => setLoading(false));
         },
         [firstName, lastName, email, password, passwordConfirmation]
     );
@@ -144,8 +148,8 @@ function RegisterForm() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button type={"submit"} variant={"contained"} fullWidth>
-                        Créer
+                    <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
+                        {loading ? <CircularProgress size={"2rem"} /> : 'Créer'}
                     </Button>
                 </Grid>
             </Grid>

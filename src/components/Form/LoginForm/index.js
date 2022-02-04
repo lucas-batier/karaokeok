@@ -9,6 +9,7 @@ import {
     ButtonBase,
     Snackbar,
     Alert,
+    CircularProgress,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
@@ -30,6 +31,7 @@ function LoginForm() {
     const [password, setPassword] = useState('');
     const [remainConnection, setRemainConnection] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
@@ -41,7 +43,8 @@ function LoginForm() {
 
             handleConnectionButtonClick(email, password, remainConnection)
                 .then(() => window.location.replace('/'))
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .finally(() => setLoading(false));
         },
         [email, password, remainConnection]
     );
@@ -111,8 +114,8 @@ function LoginForm() {
                             </Grid>
                         </Grid>
                         <Grid item xs>
-                            <Button type={"submit"} variant={"contained"} fullWidth>
-                                Se connecter
+                            <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
+                                {loading ? <CircularProgress size={"2rem"} /> : 'Se connecter'}
                             </Button>
                         </Grid>
                     </Grid>
