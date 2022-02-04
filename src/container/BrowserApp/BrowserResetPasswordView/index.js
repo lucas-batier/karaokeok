@@ -5,7 +5,7 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import ResetPasswordForm from "../../../components/Form/ResetPasswordForm";
+import SendPasswordResetEmailForm from "../../../components/Form/SendPasswordResetEmailForm";
 
 
 function BrowserResetPasswordView() {
@@ -15,7 +15,7 @@ function BrowserResetPasswordView() {
         <BrowserApp title={'Mot de passe oublié'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
-                    <ResetPasswordForm />
+                    <SendPasswordResetEmailForm />
                 </Paper>
             </Box>
         </BrowserApp>

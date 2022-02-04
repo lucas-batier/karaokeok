@@ -5,6 +5,8 @@ import {
     IconButton,
     InputAdornment,
     TextField,
+    Snackbar,
+    Alert,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
@@ -31,14 +33,17 @@ function RegisterForm() {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [genericErrors, setGenericErrors] = useState('');
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
+            setErrors({});
+
             handleClick(firstName, lastName, email, password, passwordConfirmation)
                 .then()
-                .catch(errors => { setErrors(errors) });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
         },
         [firstName, lastName, email, password, passwordConfirmation]
     );
@@ -47,6 +52,8 @@ function RegisterForm() {
         setShowPassword(!showPassword);
         setPasswordConfirmation(password);
     }, [password, showPassword]);
+
+    const handleCloseErrors = () => setGenericErrors('');
 
     return (
         <form onSubmit={onSubmit}>
@@ -142,6 +149,11 @@ function RegisterForm() {
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
+                <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
+                    {genericErrors}
+                </Alert>
+            </Snackbar>
         </form>
     );
 }

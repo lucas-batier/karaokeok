@@ -1,96 +1,128 @@
 import React, {useCallback, useState} from "react";
-import {Button, Grid, TextField, Snackbar, CircularProgress, Alert} from "@mui/material";
+import {
+    Button,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    CircularProgress,
+    Snackbar,
+    Alert,
+} from "@mui/material";
+import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
+import {useParams} from "react-router-dom";
 
 
-async function handleClick(email, emailConfirmation) {
-    if (email !== emailConfirmation) {
-        throw {email: ['Les adresses email sont différentes']};
+async function handleClick(token, password, passwordConfirmation) {
+    if (password !== passwordConfirmation) {
+        throw {password: ['Les mot de passes sont différents']};
     }
 
-    return await Api.passwordReset(email)
+    return await Api.resetPassword(token, password)
         .then(response => { return response })
         .catch(error => { throw error.response.data });
 }
 
 function ResetPasswordForm() {
-    const [email, setEmail] = useState('');
-    const [emailConfirmation, setEmailConfirmation] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState({});
+    const [genericErrors, setGenericErrors] = useState('');
     const [loading, setLoading] = useState(false);
+    const [waitForRedirection, setWaitForRedirection] = useState(false);
+    const { token } = useParams();
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
+            setErrors({});
             setLoading(true);
 
-            handleClick(email, emailConfirmation)
+            handleClick(token, password, passwordConfirmation)
                 .then(response => {
                     if (Api.responseOk(response)) {
-                        setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`)
+                        setSuccessMessage(`Ton mot de passe vient d'être modifié, tu vas automatiquement être rediriger 
+                        vers la page de login dans 3 secondes`);
+                        setWaitForRedirection(true);
+                        setTimeout(() => {
+                            setWaitForRedirection(true);
+                            window.location.replace('/login');
+                        }, 3000);
                     }
                 })
-                .catch(errors => { setErrors(errors) })
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
                 .finally(() => setLoading(false));
         },
-        [email, emailConfirmation]
+        [password, passwordConfirmation, token]
     );
 
-    const handleClose = () => setSuccessMessage('');
+    const handleClickShowPassword = useCallback(() => {
+        setShowPassword(!showPassword);
+        setPasswordConfirmation(password);
+    }, [password, showPassword]);
+
+    const handleCloseSuccess = () => setSuccessMessage('');
+    const handleCloseErrors = () => setGenericErrors('');
 
     return (
         <form onSubmit={onSubmit}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
-                        type={"email"}
+                        type={showPassword ? "text" : "password"}
                         variant={"outlined"}
-                        placeholder={'karaoke@ok.com'}
-                        label={'E-mail'}
-                        error={Boolean(errors?.email || errors?.username)}
-                        helperText={
-                            <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
-                            </>
-                        }
+                        label={'Nouveau mot de passe'}
+                        error={Boolean(errors?.password)}
+                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
                         fullWidth
-                        value={email}
-                        onChange={evt => setEmail(evt.target.value)}
+                        value={password}
+                        onChange={evt => setPassword(evt.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {showPassword ? <VisibilityOffRounded /> : <VisibilityRounded />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        type={"email"}
+                        type={showPassword ? "text" : "password"}
                         variant={"outlined"}
-                        placeholder={'karaoke@ok.com'}
                         label={'Confirmation'}
-                        error={Boolean(errors?.email || errors?.username)}
-                        helperText={
-                            <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
-                            </>
-                        }
+                        error={Boolean(errors?.password)}
+                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
                         required
                         fullWidth
-                        value={emailConfirmation}
-                        onChange={evt => setEmailConfirmation(evt.target.value)}
+                        value={passwordConfirmation}
+                        onChange={evt => setPasswordConfirmation(evt.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
-                        {loading ? <CircularProgress size={"2rem"} /> : 'Envoyer'}
+                    <Button disabled={loading || waitForRedirection} type={"submit"} variant={"contained"} fullWidth>
+                        {(loading || waitForRedirection) ? <CircularProgress size={"2rem"} /> : 'Modifier'}
                     </Button>
                 </Grid>
             </Grid>
-            <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
                     {successMessage}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
+                <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
+                    {genericErrors}
                 </Alert>
             </Snackbar>
         </form>

@@ -3,6 +3,8 @@ import {
     Button,
     Grid,
     TextField,
+    Snackbar,
+    Alert,
 } from "@mui/material";
 import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
@@ -22,6 +24,7 @@ function ProfileForm({user}) {
     const [lastName, setLastName] = useState(user?.lastName);
     const [email, setEmail] = useState(user?.username);
     const [errors, setErrors] = useState({});
+    const [genericErrors, setGenericErrors] = useState('');
 
     useEffect(() => {
         setFirstName(user?.firstName);
@@ -33,6 +36,8 @@ function ProfileForm({user}) {
         (evt) => {
             evt.preventDefault();
 
+            setErrors({});
+
             handleClick(user?.id, firstName, lastName, email)
                 .then(currentUser => {
                     currentUser = new User(currentUser);
@@ -40,10 +45,12 @@ function ProfileForm({user}) {
 
                     window.location.replace('/');
                 })
-                .catch(errors => { setErrors(errors) });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
         },
         [firstName, lastName, email, user]
     );
+
+    const handleCloseErrors = () => setGenericErrors('');
 
     return (
         <form onSubmit={onSubmit}>
@@ -99,6 +106,11 @@ function ProfileForm({user}) {
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
+                <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
+                    {genericErrors}
+                </Alert>
+            </Snackbar>
         </form>
     );
 }

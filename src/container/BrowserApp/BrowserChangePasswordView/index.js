@@ -5,14 +5,14 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import ChangePasswordForm from "../../../components/Form/ChangePasswordForm";
+import ChangePasswordForm from "../../../components/Form/ResetPasswordForm";
 
 
 function BrowserChangePasswordView() {
     const theme = useTheme();
 
     return (
-        <BrowserApp title={'Réinitialisation de mot de passe'}>
+        <BrowserApp title={'Nouveau mot de passe'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
                     <ChangePasswordForm />

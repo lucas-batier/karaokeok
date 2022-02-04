@@ -88,10 +88,20 @@ class Api {
         );
     }
 
-    async passwordReset(email) {
+    async sendPasswordResetEmail(email) {
         return await this.post(`api/password_reset/`,
             {
                 "email": email,
+            },
+            false,
+        );
+    }
+
+    async resetPassword(token, password) {
+        return await this.post(`api/password_reset/confirm/`,
+            {
+                "token": token,
+                "password": password,
             },
             false,
         );

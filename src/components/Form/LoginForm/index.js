@@ -7,6 +7,8 @@ import {
     InputAdornment,
     TextField,
     ButtonBase,
+    Snackbar,
+    Alert,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api";
@@ -29,21 +31,23 @@ function LoginForm() {
     const [remainConnection, setRemainConnection] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
+    const [genericErrors, setGenericErrors] = useState('');
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
+            setErrors({});
+
             handleConnectionButtonClick(email, password, remainConnection)
                 .then(() => window.location.replace('/'))
-                .catch(errors => { setErrors(errors) });
+                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail);  });
         },
         [email, password, remainConnection]
     );
 
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    }
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleCloseErrors = () => setGenericErrors('');
 
     return (
         <form onSubmit={onSubmit}>
@@ -128,6 +132,11 @@ function LoginForm() {
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
+                <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
+                    {genericErrors}
+                </Alert>
+            </Snackbar>
         </form>
     );
 }

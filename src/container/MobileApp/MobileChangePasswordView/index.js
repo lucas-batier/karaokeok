@@ -5,14 +5,14 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import ChangePasswordForm from "../../../components/Form/ChangePasswordForm";
+import ChangePasswordForm from "../../../components/Form/ResetPasswordForm";
 
 
 function MobileChangePasswordView() {
     const theme = useTheme();
 
     return (
-        <MobileApp title={'Réinitialisation de mot de passe'}>
+        <MobileApp title={'Nouveau mot de passe'}>
             <Box mx={2} mt={3}>
                 <Paper style={{padding: theme.spacing(3)}}>
                     <ChangePasswordForm />
