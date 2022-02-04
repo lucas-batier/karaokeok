@@ -1,48 +1,45 @@
 import React, {useCallback, useState} from "react";
-import {
-    Button,
-    Grid,
-    TextField,
-} from "@mui/material";
+import {Button, Grid, TextField, Snackbar, CircularProgress, Alert} from "@mui/material";
 import Api from "../../../libs/api";
 import ErrorsLabel from "../../ErrorsLabel";
 
 
 async function handleClick(email, emailConfirmation) {
     if (email !== emailConfirmation) {
-        throw {email: ['The email adresses doesn\'t match.']};
+        throw {email: ['Les adresses email sont différentes']};
     }
 
-    const response = await Api.get('api/users', {username: email})
+    return await Api.passwordReset(email)
         .then(response => { return response })
         .catch(error => { throw error.response.data });
-
-    if (!Api.responseOk(response)) {
-        return response;
-    }
-
-    if (1 !== response.data.count) {
-        throw {username: ['No user exists with this username.']};
-    }
-
-    return 'sendmail'; // @todo send mail or handle reset password
 }
 
 function ResetPasswordForm() {
     const [email, setEmail] = useState('');
     const [emailConfirmation, setEmailConfirmation] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
+            setLoading(true);
+
             handleClick(email, emailConfirmation)
-                .then()
-                .catch(errors => { setErrors(errors) });
+                .then(response => {
+                    if (Api.responseOk(response)) {
+                        setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`)
+                    }
+                })
+                .catch(errors => { setErrors(errors) })
+                .finally(() => setLoading(false));
         },
         [email, emailConfirmation]
     );
+
+    const handleClose = () => setSuccessMessage('');
 
     return (
         <form onSubmit={onSubmit}>
@@ -86,11 +83,16 @@ function ResetPasswordForm() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button type={"submit"} variant={"contained"} fullWidth>
-                        Envoyer
+                    <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
+                        {loading ? <CircularProgress size={"2rem"} /> : 'Envoyer'}
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {successMessage}
+                </Alert>
+            </Snackbar>
         </form>
     );
 }

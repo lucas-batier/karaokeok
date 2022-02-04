@@ -5,7 +5,7 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import RegisterForm from "../../../components/forms/RegisterForm";
+import RegisterForm from "../../../components/Form/RegisterForm";
 
 
 function BrowserRegisterView() {

@@ -5,7 +5,7 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import ProfileForm from "../../../components/forms/ProfileForm";
+import ProfileForm from "../../../components/Form/ProfileForm";
 import {withUser} from "../../../contexts/userContext";
 import {userShape} from "../../../models/users";
 

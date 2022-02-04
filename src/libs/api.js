@@ -11,8 +11,8 @@ class Api {
         this.token = sessionStorage.getItem('token') || localStorage.getItem('token') || null;
     }
 
-    async get(url, filters=[], orders=[], search='', limit=1000, offset=0) {
-        const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
+    async get(url, filters=[], orders=[], search='', limit=1000, offset=0, withToken=true) {
+        const headers = (withToken && this.token) ? {"Authorization": `Token ${this.token}`} : {};
 
         const argFilters = Object.entries(filters).map(filter => filter.join('='));
         const argOrders = orders.length ? `ordering=${orders.join(',')}` : null;
@@ -29,8 +29,8 @@ class Api {
         })
     }
 
-    async post(url, data={}) {
-        const headers = this.token ? {"Authorization": `Token ${this.token}`} : {};
+    async post(url, data={}, withToken=true) {
+        const headers = (withToken && this.token) ? {"Authorization": `Token ${this.token}`} : {};
 
         return await axios({
             url: url,
@@ -76,7 +76,7 @@ class Api {
     }
 
     async register(firstName, lastName, username, password, passwordConfirmation) {
-        const response = await this.post(`api/register/`,
+        return await this.post(`api/register/`,
             {
                 "first_name": firstName,
                 "last_name": lastName,
@@ -86,8 +86,15 @@ class Api {
                 "password_confirmation": passwordConfirmation,
             }
         );
+    }
 
-        return response;
+    async passwordReset(email) {
+        return await this.post(`api/password_reset/`,
+            {
+                "email": email,
+            },
+            false,
+        );
     }
 }
 

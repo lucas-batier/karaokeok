@@ -42,7 +42,7 @@ const theme = createTheme({
 });
 
 async function getCurrentUser() {
-    return await Api.get('api/users/me')
+    return await Api.get('api/current_user')
         .then(response => { return response.data })
         .catch(response => console.error(response));
 }

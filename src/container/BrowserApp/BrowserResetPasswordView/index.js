@@ -5,7 +5,7 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import ResetPasswordForm from "../../../components/forms/ResetPasswordForm";
+import ResetPasswordForm from "../../../components/Form/ResetPasswordForm";
 
 
 function BrowserResetPasswordView() {

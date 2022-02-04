@@ -5,7 +5,7 @@ import {
     Paper,
     useTheme
 } from "@mui/material";
-import LoginForm from "../../../components/forms/LoginForm";
+import LoginForm from "../../../components/Form/LoginForm";
 
 
 function BrowserLoginView() {
