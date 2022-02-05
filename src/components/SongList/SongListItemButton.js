@@ -5,7 +5,7 @@ import screenfull from "screenfull";
 import ReactPlayer from "react-player/lazy";
 
 
-function SongListItemButton({key, song}) {
+function SongListItemButton({song}) {
     const theme = useTheme();
 
     const player = useRef(null);
@@ -33,7 +33,7 @@ function SongListItemButton({key, song}) {
 
     return (
         !play ? (
-            <ListItemButton key={key} onClick={handleClick} disableRipple disableGutters>
+            <ListItemButton component={"a"} href={song.youtube_url} disableRipple disableGutters>
                 <ListItemIcon>
                     <img src={song.thumbnail_url} alt={song.title} title={song.title} width={50}/>
                 </ListItemIcon>

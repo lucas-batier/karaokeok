@@ -7,10 +7,10 @@ import {
 } from "@mui/material";
 import {userShape} from "../../models/users";
 
-function UserLoginListItemButton({user}) {
+function UserLoginIconButton({user}) {
     if (user.id) {
         return (
-            <ButtonBase component={"a"} href={"/profile"} disableTouchRipple>
+            <ButtonBase component={"a"} href={"/account"} disableTouchRipple>
                 <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
                     <AccountCircleRounded />
                     <Typography variant={"caption"}>
@@ -33,8 +33,8 @@ function UserLoginListItemButton({user}) {
     )
 }
 
-export default withUser(UserLoginListItemButton);
+export default withUser(UserLoginIconButton);
 
-UserLoginListItemButton.propTypes = {
+UserLoginIconButton.propTypes = {
     user: userShape,
 };

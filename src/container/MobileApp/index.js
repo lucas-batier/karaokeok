@@ -7,13 +7,14 @@ import {
     Typography
 } from "@mui/material";
 import {HomeRounded, LibraryMusicRounded, LoginRounded} from "@mui/icons-material";
+import UserLoginIconButton from "../../components/UserLoginIconButton";
 
 
 function MobileApp(props) {
     return (
         <Grid container>
             <Grid item my={2} mx={2} xs={12}>
-                <Typography variant={"h2"}>
+                <Typography variant={"h5"}>
                     {props.title}
                 </Typography>
             </Grid>
@@ -50,14 +51,7 @@ function MobileApp(props) {
                     {/*    </Box>*/}
                     {/*</ButtonBase>*/}
                     {/*<Box sx={{ flexGrow: 1 }} />*/}
-                    <ButtonBase component={"a"} href={"/login"} disableTouchRipple>
-                        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                            <LoginRounded/>
-                            <Typography variant={"caption"}>
-                                Se connecter
-                            </Typography>
-                        </Box>
-                    </ButtonBase>
+                    <UserLoginIconButton />
                 </Toolbar>
             </AppBar>
         </Grid>
