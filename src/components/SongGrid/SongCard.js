@@ -30,44 +30,42 @@ function SongCard({song}) {
     };
 
     return (
-        <>
-            <Card style={{width: 150, height: 150}}>
-                <ButtonBase
-                    onClick={handleClick}
-                    style={{width: 150, height: 150}}
-                >
-                    {!play ? (
-                        <>
-                            <img
-                                src={song.thumbnail_url}
-                                alt={song.title}
-                                style={{width: 150, height: 150, opacity: 0.3}}
-                                color={theme.palette.background.paper}
-                            />
-                            <Box position={"absolute"} textAlign={"center"}>
-                                <Typography style={{fontWeight: 600}}>
-                                    {song.title}
-                                </Typography>
-                                <Typography color={"textSecondary"} variant={"caption"}>
-                                    {song.artist}
-                                    {song.featuring_artist?.map(featuring_artist => `, ${featuring_artist}`)}
-                                </Typography>
-                            </Box>
-                        </>
-                        ) : (
-                        <ReactPlayer
-                            ref={player}
-                            url={song.youtube_url}
-                            playing
-                            style={{width: 150, height: 150}}
-                            onStart={handleStart}
-                            onEnded={handleEnd}
-                            onPause={handleEnd}
+        <Card style={{width: 150, height: 150}}>
+            <ButtonBase
+                onClick={handleClick}
+                style={{width: 150, height: 150}}
+            >
+                {!play ? (
+                    <>
+                        <img
+                            src={song.thumbnail_url}
+                            alt={song.title}
+                            style={{width: 150, height: 150, opacity: 0.3}}
+                            color={theme.palette.background.paper}
                         />
-                    )}
-                </ButtonBase>
-            </Card>
-        </>
+                        <Box position={"absolute"} textAlign={"center"}>
+                            <Typography style={{fontWeight: 600}}>
+                                {song.title}
+                            </Typography>
+                            <Typography color={"textSecondary"} variant={"caption"}>
+                                {song.artist}
+                                {song.featuring_artist?.map(featuring_artist => `, ${featuring_artist}`)}
+                            </Typography>
+                        </Box>
+                    </>
+                    ) : (
+                    <ReactPlayer
+                        ref={player}
+                        url={song.youtube_url}
+                        playing
+                        style={{width: 150, height: 150}}
+                        onStart={handleStart}
+                        onEnded={handleEnd}
+                        onPause={handleEnd}
+                    />
+                )}
+            </ButtonBase>
+        </Card>
     );
 }
 

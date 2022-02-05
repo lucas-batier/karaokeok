@@ -6,7 +6,7 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
-import {HomeRounded, LibraryMusicRounded, LoginRounded} from "@mui/icons-material";
+import {HomeRounded, LibraryMusicRounded} from "@mui/icons-material";
 import UserLoginIconButton from "../../components/UserLoginIconButton";
 
 

@@ -16,6 +16,9 @@ function MobileTeasingView() {
     return (
         <MobileApp title={"KaraokeOK"}>
             <Box display={"flex"} flexDirection={"column"} mx={2} my={6}>
+                <Typography variant={"h2"}>
+                    KaraokeOK
+                </Typography>
                 <Typography variant={"h5"}>
                     SORTIE DANS
                 </Typography>
