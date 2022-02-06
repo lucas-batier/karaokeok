@@ -40,7 +40,7 @@ function MobileArtistSongsList() {
 
     return (
         <MobileApp title={"Bibliothèque"}>
-            <Box mx={2} mb={4}>
+            <Box mx={2} mb={4} mt={2}>
                 <SearchForm
                     searchText={searchText}
                     onSearchTextChange={(text) => setSearchText(text)}
@@ -49,11 +49,11 @@ function MobileArtistSongsList() {
             </Box>
             {loading ?
                 <Typography textAlign={"center"} m={6}>
-                    Chargement des titres... &#x1F596;&#x1F3FF;
+                    Chargement des titres... 🖖🏿
                 </Typography> :
                 songs?.length === 0 ?
                     <Typography textAlign={"center"} m={6}>
-                        Aucun titre ne correpsond à votre recherche &#128546;
+                        Aucun titre ne correpsond à votre recherche 😢
                     </Typography> :
                     <Grid container rowSpacing={3}>
                         {artists?.map((artist, index) => {

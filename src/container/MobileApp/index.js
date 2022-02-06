@@ -13,7 +13,7 @@ import UserLoginIconButton from "../../components/UserLoginIconButton";
 function MobileApp(props) {
     return (
         <Grid container>
-            <Grid item my={2} mx={2} xs={12}>
+            <Grid item m={2} xs={12}>
                 <Typography variant={"h5"}>
                     {props.title}
                 </Typography>

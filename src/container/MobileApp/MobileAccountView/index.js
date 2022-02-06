@@ -7,7 +7,7 @@ import MobileApp from "../index";
 function MobileAccountView({user}) {
     return (
         <MobileApp title={user?.fullName}>
-            <Box mx={2} mt={3} display={"flex"} flexDirection={"column"}>
+            <Box m={2} display={"flex"} flexDirection={"column"}>
                 <AccountView />
                 <Box mt={6} alignSelf={"center"}>
                     <Button variant={"contained"} component={"a"} href={"/profile"}>

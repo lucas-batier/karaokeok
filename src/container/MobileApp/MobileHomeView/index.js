@@ -1,7 +1,7 @@
 import React from "react";
 import MobileApp from "../index";
 import {Grid, Box, useTheme} from "@mui/material";
-import {LibraryMusicRounded, AddReactionRounded} from "@mui/icons-material";
+import {LibraryMusicRounded, AddReactionRounded, LoginRounded} from "@mui/icons-material";
 import LineButtonCard from "../../../components/LineButtonCard";
 
 
@@ -10,7 +10,7 @@ function MobileHomeView() {
 
     return (
         <MobileApp title={"KaraokeOK"}>
-            <Box mx={2} my={6} display={"flex"} flexDirection={"column"}>
+            <Box m={2} display={"flex"} flexDirection={"column"}>
                 <Grid container rowSpacing={2}>
                     <Grid item xs={12}>
                         <LineButtonCard
@@ -24,6 +24,13 @@ function MobileHomeView() {
                             href={"/proposal"}
                             text={"Envoyer une proposition"}
                             icon={<AddReactionRounded />}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <LineButtonCard
+                            href={"/login"}
+                            text={"Se connecter"}
+                            icon={<LoginRounded />}
                         />
                     </Grid>
                 </Grid>
