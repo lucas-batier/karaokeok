@@ -6,7 +6,7 @@ function ColumnButtonCard({href, text, icon}) {
     const theme = useTheme();
 
     return (
-        <Card sx={{ width: theme.spacing(24), height: theme.spacing(24) }}>
+        <Card sx={{ width: theme.spacing(18), height: theme.spacing(18) }}>
             <CardActionArea
                 sx={{
                     display: "flex",
@@ -17,18 +17,28 @@ function ColumnButtonCard({href, text, icon}) {
             >
                 <CardMedia
                     sx={{
-                        width: theme.spacing(24),
-                        height: theme.spacing(24),
+                        width: theme.spacing(18),
+                        height: theme.spacing(18),
                         backgroundColor: theme.palette.primary.main,
                         color: theme.palette.background.paper,
                     }}
                 >
                     {
-                        <Box m={3} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                            <Box my={4} fontSize={"large"}>
+                        <Box
+                            py={2}
+                            display={"flex"}
+                            flexDirection={"column"}
+                            alignItems={"center"}
+                            justifyContent={"space-between"}
+                            sx={{
+                                width: theme.spacing(18),
+                                height: theme.spacing(18),
+                            }}
+                        >
+                            <Box>
                                 {icon}
                             </Box>
-                            <Typography justify={"center"}>
+                            <Typography textAlign={"center"} variant={"h6"}>
                                 {text}
                             </Typography>
                         </Box>
