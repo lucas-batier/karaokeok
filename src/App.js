@@ -17,7 +17,7 @@ import MobileSettingsView from "./container/MobileApp/MobileSettingsView";
 import BrowserAccountView from "./container/BrowserApp/BrowserAccountView";
 import MobileAccountView from "./container/MobileApp/MobileAccountView";
 import userContext from "./contexts/userContext";
-import Api from "./libs/api";
+import Api from "./libs/api/client";
 import {getCurrentUserFromStorage, setCurrentUserInStorage} from "./libs/user";
 import User from "./models/users";
 import BrowserTeasingView from "./container/BrowserApp/BrowserTeasingView";

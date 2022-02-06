@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from "react";
 import {Button, Grid, TextField, Snackbar, CircularProgress, Alert} from "@mui/material";
-import Api from "../../../libs/api";
+import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
+import {responseOk} from "../../../libs/api/errors";
 
 
 async function handleClick(email, emailConfirmation) {
@@ -18,7 +19,7 @@ function SendPasswordResetEmailForm() {
     const [email, setEmail] = useState('');
     const [emailConfirmation, setEmailConfirmation] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [errors, setErrors] = useState({});
+    const [helperErrors, setHelperErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [genericErrors, setGenericErrors] = useState('');
 
@@ -26,17 +27,17 @@ function SendPasswordResetEmailForm() {
         (evt) => {
             evt.preventDefault();
 
-            setErrors({});
+            setHelperErrors({});
             setLoading(true);
 
             handleClick(email, emailConfirmation)
                 .then(response => {
-                    if (Api.responseOk(response)) {
+                    if (responseOk(response)) {
                         setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`)
                     }
                 })
                 .catch(errors => {
-                    setErrors(errors.data); setGenericErrors(errors?.detail);
+                    setHelperErrors(errors.data); setGenericErrors(errors?.detail);
                 })
                 .finally(() => setLoading(false));
         },
@@ -55,11 +56,11 @@ function SendPasswordResetEmailForm() {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'E-mail'}
-                        error={Boolean(errors?.email || errors?.username)}
+                        error={Boolean(helperErrors?.email || helperErrors?.username)}
                         helperText={
                             <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
+                                {(helperErrors?.email && <ErrorsLabel errors={helperErrors.email} />)}
+                                {(helperErrors?.username && <ErrorsLabel errors={helperErrors.username} />)}
                             </>
                         }
                         required
@@ -74,11 +75,11 @@ function SendPasswordResetEmailForm() {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'Confirmation'}
-                        error={Boolean(errors?.email || errors?.username)}
+                        error={Boolean(helperErrors?.email || helperErrors?.username)}
                         helperText={
                             <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
+                                {(helperErrors?.email && <ErrorsLabel errors={helperErrors.email} />)}
+                                {(helperErrors?.username && <ErrorsLabel errors={helperErrors.username} />)}
                             </>
                         }
                         required

@@ -10,20 +10,21 @@ import {
     CircularProgress,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
-import Api from "../../../libs/api";
+import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
+import {errorMessage, responseOk} from "../../../libs/api/errors";
 
 
 async function handleClick(firstName, lastName, username, password, passwordConfirmation) {
     return await Api.register(firstName, lastName, username, password, passwordConfirmation)
         .then(response => {
-            if (Api.responseOk(response)) {
+            if (responseOk(response)) {
                 Api.login(username, password)
                     .then(() => window.location.replace('/'))
-                    .catch(error => { throw error.response.data });
+                    .catch(error => { throw error.response });
             }
         })
-        .catch(error => { throw error.response.data });
+        .catch(error => { throw error.response });
 }
 
 function RegisterForm() {
@@ -34,7 +35,7 @@ function RegisterForm() {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
     const onSubmit = useCallback(
@@ -42,11 +43,18 @@ function RegisterForm() {
             evt.preventDefault();
 
             setLoading(true);
-            setErrors({});
+            setHelperErrors({});
 
             handleClick(firstName, lastName, email, password, passwordConfirmation)
                 .then()
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .catch(response => {
+                    if (response.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        setGenericErrors(errorMessage(response));
+                    }
+                })
                 .finally(() => setLoading(false));
         },
         [firstName, lastName, email, password, passwordConfirmation]
@@ -68,8 +76,8 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'Freddy'}
                         label={'Prénom'}
-                        error={Boolean(errors?.first_name)}
-                        helperText={errors?.first_name && <ErrorsLabel errors={errors.first_name} />}
+                        error={Boolean(helperErrors?.first_name)}
+                        helperText={helperErrors?.first_name && <ErrorsLabel helperErrors={helperErrors.first_name} />}
                         required
                         fullWidth
                         autoFocus
@@ -83,8 +91,8 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'Mercury'}
                         label={'Nom'}
-                        error={Boolean(errors?.last_name)}
-                        helperText={errors?.last_name && <ErrorsLabel errors={errors.last_name} />}
+                        error={Boolean(helperErrors?.last_name)}
+                        helperText={helperErrors?.last_name && <ErrorsLabel helperErrors={helperErrors.last_name} />}
                         required
                         fullWidth
                         value={lastName}
@@ -97,11 +105,11 @@ function RegisterForm() {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'E-mail'}
-                        error={Boolean(errors?.email || errors?.username)}
+                        error={Boolean(helperErrors?.email || helperErrors?.username)}
                         helperText={
                             <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
+                                {(helperErrors?.email && <ErrorsLabel helperErrors={helperErrors.email} />)}
+                                {(helperErrors?.username && <ErrorsLabel helperErrors={helperErrors.username} />)}
                             </>
                         }
                         required
@@ -115,8 +123,8 @@ function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Mot de passe'}
-                        error={Boolean(errors?.password)}
-                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
+                        error={Boolean(helperErrors?.password)}
+                        helperText={helperErrors?.password && <ErrorsLabel helperErrors={helperErrors.password} />}
                         required
                         fullWidth
                         value={password}
@@ -139,8 +147,8 @@ function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Confirmation'}
-                        error={Boolean(errors?.password)}
-                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
+                        error={Boolean(helperErrors?.password)}
+                        helperText={helperErrors?.password && <ErrorsLabel helperErrors={helperErrors.password} />}
                         required
                         fullWidth
                         value={passwordConfirmation}

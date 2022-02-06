@@ -10,9 +10,10 @@ import {
     Alert,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
-import Api from "../../../libs/api";
+import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {useParams} from "react-router-dom";
+import {errorMessage, responseOk} from "../../../libs/api/errors";
 
 
 async function handleClick(token, password, passwordConfirmation) {
@@ -22,7 +23,7 @@ async function handleClick(token, password, passwordConfirmation) {
 
     return await Api.resetPassword(token, password)
         .then(response => { return response })
-        .catch(error => { throw error.response.data });
+        .catch(error => { throw error.response });
 }
 
 function ResetPasswordForm() {
@@ -30,7 +31,7 @@ function ResetPasswordForm() {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-    const [errors, setErrors] = useState({});
+    const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
     const [loading, setLoading] = useState(false);
     const [waitForRedirection, setWaitForRedirection] = useState(false);
@@ -40,12 +41,12 @@ function ResetPasswordForm() {
         (evt) => {
             evt.preventDefault();
 
-            setErrors({});
+            setHelperErrors({});
             setLoading(true);
 
             handleClick(token, password, passwordConfirmation)
                 .then(response => {
-                    if (Api.responseOk(response)) {
+                    if (responseOk(response)) {
                         setSuccessMessage(`Ton mot de passe vient d'être modifié, tu vas automatiquement être rediriger 
                         vers la page de login dans 3 secondes`);
                         setWaitForRedirection(true);
@@ -55,7 +56,14 @@ function ResetPasswordForm() {
                         }, 3000);
                     }
                 })
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .catch(response => {
+                    if (response.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        setGenericErrors(errorMessage(response));
+                    }
+                })
                 .finally(() => setLoading(false));
         },
         [password, passwordConfirmation, token]
@@ -77,8 +85,8 @@ function ResetPasswordForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Nouveau mot de passe'}
-                        error={Boolean(errors?.password)}
-                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
+                        error={Boolean(helperErrors?.password)}
+                        helperText={helperErrors?.password && <ErrorsLabel errors={helperErrors.password} />}
                         required
                         fullWidth
                         value={password}
@@ -101,8 +109,8 @@ function ResetPasswordForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Confirmation'}
-                        error={Boolean(errors?.password)}
-                        helperText={errors?.password && <ErrorsLabel errors={errors.password} />}
+                        error={Boolean(helperErrors?.password)}
+                        helperText={helperErrors?.password && <ErrorsLabel errors={helperErrors.password} />}
                         required
                         fullWidth
                         value={passwordConfirmation}

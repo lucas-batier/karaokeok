@@ -12,15 +12,16 @@ import {
     CircularProgress,
 } from "@mui/material";
 import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
-import Api from "../../../libs/api";
+import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {useLinkStyles} from "../../../styles/link";
+import {errorMessage} from "../../../libs/api/errors";
 
 
 async function handleConnectionButtonClick(username, password, remainConnection) {
     return await Api.login(username, password, remainConnection)
         .then()
-        .catch(error => { throw error.response.data });
+        .catch(error => { throw error.response });
 }
 
 // @todo ajouter mot de passe oublié avec envoie d'email etc...
@@ -32,18 +33,25 @@ function LoginForm() {
     const [remainConnection, setRemainConnection] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
-            setErrors({});
+            setHelperErrors({});
 
             handleConnectionButtonClick(email, password, remainConnection)
                 .then(() => window.location.replace('/'))
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .catch(response => {
+                    if (response.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        setGenericErrors(errorMessage(response));
+                    }
+                })
                 .finally(() => setLoading(false));
         },
         [email, password, remainConnection]
@@ -61,8 +69,8 @@ function LoginForm() {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'E-mail'}
-                        error={Boolean(errors?.non_field_errors)}
-                        helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
+                        error={Boolean(helperErrors?.non_field_errors)}
+                        helperText={helperErrors?.non_field_errors && <ErrorsLabel errors={helperErrors.non_field_errors} />}
                         required
                         fullWidth
                         autoFocus
@@ -75,8 +83,8 @@ function LoginForm() {
                         type={showPassword ? "text" : "password"}
                         variant={"outlined"}
                         label={'Mot de passe'}
-                        error={Boolean(errors?.non_field_errors)}
-                        helperText={errors?.non_field_errors && <ErrorsLabel errors={errors.non_field_errors} />}
+                        error={Boolean(helperErrors?.non_field_errors)}
+                        helperText={helperErrors?.non_field_errors && <ErrorsLabel errors={helperErrors.non_field_errors} />}
                         required
                         fullWidth
                         value={password}

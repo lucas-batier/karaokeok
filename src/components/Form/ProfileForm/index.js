@@ -7,17 +7,18 @@ import {
     Alert,
     CircularProgress,
 } from "@mui/material";
-import Api from "../../../libs/api";
+import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {withUser} from "../../../contexts/userContext";
 import User, {userShape} from "../../../models/users";
 import {setCurrentUserInStorage} from "../../../libs/user";
+import {errorMessage} from "../../../libs/api/errors";
 
 
 async function handleClick(id, firstName, lastName, username) {
     return await Api.patch(`api/users/${id}/`,{first_name: firstName, last_name: lastName, username: username, email: username})
         .then(response => { return response.data })
-        .catch(error => { throw error.response.data });
+        .catch(error => { throw error.response });
 }
 
 function ProfileForm({user}) {
@@ -25,7 +26,7 @@ function ProfileForm({user}) {
     const [lastName, setLastName] = useState(user?.lastName);
     const [email, setEmail] = useState(user?.username);
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
 
     useEffect(() => {
@@ -39,7 +40,7 @@ function ProfileForm({user}) {
             evt.preventDefault();
 
             setLoading(true);
-            setErrors({});
+            setHelperErrors({});
 
             handleClick(user?.id, firstName, lastName, email)
                 .then(currentUser => {
@@ -48,7 +49,14 @@ function ProfileForm({user}) {
 
                     window.location.replace('/');
                 })
-                .catch(errors => { setErrors(errors); setGenericErrors(errors?.detail); })
+                .catch(response => {
+                    if (response.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        setGenericErrors(errorMessage(response));
+                    }
+                })
                 .finally(() => setLoading(false));
         },
         [firstName, lastName, email, user]
@@ -65,8 +73,8 @@ function ProfileForm({user}) {
                         variant={"outlined"}
                         placeholder={'Freddy'}
                         label={'Prénom'}
-                        error={Boolean(errors?.first_name)}
-                        helperText={errors?.first_name && <ErrorsLabel errors={errors.first_name} />}
+                        error={Boolean(helperErrors?.first_name)}
+                        helperText={helperErrors?.first_name && <ErrorsLabel errors={helperErrors.first_name} />}
                         fullWidth
                         autoFocus
                         value={firstName || ''}
@@ -79,8 +87,8 @@ function ProfileForm({user}) {
                         variant={"outlined"}
                         placeholder={'Mercury'}
                         label={'Nom'}
-                        error={Boolean(errors?.last_name)}
-                        helperText={errors?.last_name && <ErrorsLabel errors={errors.last_name} />}
+                        error={Boolean(helperErrors?.last_name)}
+                        helperText={helperErrors?.last_name && <ErrorsLabel errors={helperErrors.last_name} />}
                         fullWidth
                         value={lastName || ''}
                         onChange={evt => setLastName(evt.target.value)}
@@ -92,11 +100,11 @@ function ProfileForm({user}) {
                         variant={"outlined"}
                         placeholder={'karaoke@ok.com'}
                         label={'E-mail'}
-                        error={Boolean(errors?.email || errors?.username)}
+                        error={Boolean(helperErrors?.email || helperErrors?.username)}
                         helperText={
                             <>
-                                {(errors?.email && <ErrorsLabel errors={errors.email} />)}
-                                {(errors?.username && <ErrorsLabel errors={errors.username} />)}
+                                {(helperErrors?.email && <ErrorsLabel errors={helperErrors.email} />)}
+                                {(helperErrors?.username && <ErrorsLabel errors={helperErrors.username} />)}
                             </>
                         }
                         fullWidth
