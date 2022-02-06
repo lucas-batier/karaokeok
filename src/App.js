@@ -71,7 +71,7 @@ function App() {
 
     const production = process.env.NODE_ENV === 'production';
 
-    if (true) {
+    if (false) {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
