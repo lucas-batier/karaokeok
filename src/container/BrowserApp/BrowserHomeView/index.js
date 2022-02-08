@@ -19,7 +19,7 @@ function BrowserHomeView() {
                             T’en as marre de passer plus de temps à choisir le prochain karaoke plutôt qu’à le chanter ?
                         </Typography>
                         <Typography variant={"h6"} paragraph>
-                            Essaye <ButtonBase component={"a"} href={"/"} className={linkClasses.primary}>KaraokeOK</ButtonBase>
+                            Essaye <Typography component={"span"} variant={"h6"} color={theme.palette.primary.main}>KaraokeOK</Typography>
                             , première application communautaires avec des versions Karaoke vérifiés !
                         </Typography>
                         <Typography variant={"h6"} paragraph>
