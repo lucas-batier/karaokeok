@@ -28,6 +28,8 @@ import BrowserResetPasswordView from "./container/BrowserApp/BrowserResetPasswor
 import MobileResetPasswordView from "./container/MobileApp/MobileResetPasswordView";
 import BrowserChangePasswordView from "./container/BrowserApp/BrowserChangePasswordView";
 import MobileChangePasswordView from "./container/MobileApp/MobileChangePasswordView";
+import BrowserProposalView from "./container/BrowserApp/BrowserProposalView";
+import MobileProposalView from "./container/MobileApp/MobileProposalView";
 
 const theme = createTheme({
     palette: {
@@ -191,6 +193,16 @@ function App() {
                                 </BrowserView>
                                 <MobileView>
                                     <MobileChangePasswordView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/proposal" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserProposalView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileProposalView />
                                 </MobileView>
                             </>
                         }/>
