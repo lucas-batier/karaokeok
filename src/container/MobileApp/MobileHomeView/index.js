@@ -22,7 +22,7 @@ function MobileHomeView() {
                     <Grid item xs={12}>
                         <LineButtonCard
                             href={"/proposal"}
-                            text={"Envoyer une proposition"}
+                            text={"Envoyer des propositions"}
                             icon={<AddReactionRounded />}
                         />
                     </Grid>

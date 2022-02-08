@@ -1,14 +1,12 @@
 import React from "react";
-import {Box, useTheme, Grid, Typography, ButtonBase} from "@mui/material";
+import {Box, useTheme, Grid, Typography} from "@mui/material";
 import BrowserApp from "../index";
 import {LibraryMusicRounded, AddReactionRounded, LoginRounded} from "@mui/icons-material";
 import ColumnButtonCard from "../../../components/ColumnButtonCard";
-import {useLinkStyles} from "../../../styles/link";
 
 
 function BrowserHomeView() {
     const theme = useTheme();
-    const linkClasses = useLinkStyles();
 
     return (
         <BrowserApp title={"KaraokeOK"}>
@@ -20,7 +18,7 @@ function BrowserHomeView() {
                         </Typography>
                         <Typography variant={"h6"} paragraph>
                             Essaye <Typography component={"span"} variant={"h6"} color={theme.palette.primary.main}>KaraokeOK</Typography>
-                            , première application communautaires avec des versions Karaoke vérifiés !
+                            , première application communautaires avec des versions karaoke vérifiés !
                         </Typography>
                         <Typography variant={"h6"} paragraph>
                             Prêt à te casser la voix ?
@@ -36,7 +34,7 @@ function BrowserHomeView() {
                     <Grid item>
                         <ColumnButtonCard
                             href={"/proposal"}
-                            text={"Envoyer une proposition"}
+                            text={"Envoyer des propositions"}
                             icon={<AddReactionRounded fontSize={"large"} />}
                         />
                     </Grid>

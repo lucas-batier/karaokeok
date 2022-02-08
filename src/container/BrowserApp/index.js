@@ -9,7 +9,7 @@ import {
     ListItemText, Typography,
     useTheme
 } from "@mui/material";
-import {HomeRounded, LibraryMusicRounded} from "@mui/icons-material";
+import {HomeRounded, LibraryMusicRounded, AddReactionRounded, SubscriptionsRounded} from "@mui/icons-material";
 import UserLoginListItemButton from "../../components/UserLoginListItemButton";
 
 
@@ -69,6 +69,16 @@ function BrowserApp(props) {
                         {/*    </ListItemIcon>*/}
                         {/*    <ListItemText primary={'Vos playlists'} style={{whiteSpace: "nowrap"}} />*/}
                         {/*</ListItemButton>*/}
+                        <ListItemButton
+                            component={"a"}
+                            href={"/proposal"}
+                            style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}
+                        >
+                            <ListItemIcon>
+                                <AddReactionRounded />
+                            </ListItemIcon>
+                            <ListItemText primary={'Propositions'} style={{whiteSpace: "nowrap"}} />
+                        </ListItemButton>
                     </List>
                     <div style={{flex: 1}} />
                     <UserLoginListItemButton />
