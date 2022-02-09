@@ -15,14 +15,14 @@ function MobileHomeView() {
                     <Grid item xs={12}>
                         <LineButtonCard
                             href={"/songs"}
-                            text={"Aller à la bibliothèque"}
+                            text={"Bibliothèque"}
                             icon={<LibraryMusicRounded />}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <LineButtonCard
                             href={"/proposal"}
-                            text={"Envoyer des propositions"}
+                            text={"Propositions"}
                             icon={<AddReactionRounded />}
                         />
                     </Grid>

@@ -2,7 +2,7 @@ import React from "react";
 import {Box, useTheme, Grid, Typography} from "@mui/material";
 import BrowserApp from "../index";
 import {LibraryMusicRounded, AddReactionRounded, LoginRounded} from "@mui/icons-material";
-import ColumnButtonCard from "../../../components/ColumnButtonCard";
+import LineButtonCard from "../../../components/LineButtonCard";
 
 
 function BrowserHomeView() {
@@ -11,38 +11,21 @@ function BrowserHomeView() {
     return (
         <BrowserApp title={"KaraokeOK"}>
             <Box display={"flex"} justifyContent={"center"} m={3}>
-                <Grid container mr={6} columnSpacing={6} justifyContent={"space-between"} alignItems={"center"}>
+                <Grid container mr={6} columnSpacing={6} justifyContent={"center"}>
                     <Grid item xs={12}>
-                        <Typography variant={"h6"} paragraph>
-                            T’en as marre de passer plus de temps à choisir le prochain karaoke plutôt qu’à le chanter ?
+                        <Typography variant={"h4"} paragraph fontWeight={900}>
+                            L'application communautaire avec des karaokes vérifiés !
                         </Typography>
-                        <Typography variant={"h6"} paragraph>
-                            Essaye <Typography component={"span"} variant={"h6"} color={theme.palette.primary.main}>KaraokeOK</Typography>
-                            , première application communautaires avec des versions karaoke vérifiés !
-                        </Typography>
-                        <Typography variant={"h6"} paragraph>
-                            Prêt à te casser la voix ?
+                        <Typography paragraph>
+                            Check list des 3 actions
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <ColumnButtonCard
+                        <LineButtonCard
                             href={"/songs"}
-                            text={"Aller à la bibliothèque"}
+                            text={"Bibliothèque"}
                             icon={<LibraryMusicRounded fontSize={"large"} />}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <ColumnButtonCard
-                            href={"/proposal"}
-                            text={"Envoyer des propositions"}
-                            icon={<AddReactionRounded fontSize={"large"} />}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <ColumnButtonCard
-                            href={"/login"}
-                            text={"Se connecter"}
-                            icon={<LoginRounded fontSize={"large"} />}
+                            size={"big"}
                         />
                     </Grid>
                 </Grid>

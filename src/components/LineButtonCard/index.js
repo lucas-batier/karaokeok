@@ -1,8 +1,8 @@
-import {Card, useTheme, CardActionArea, CardMedia, CardContent} from "@mui/material";
+import {Card, useTheme, CardActionArea, CardMedia, CardContent, Typography} from "@mui/material";
 import PropTypes from "prop-types";
 
 
-function LineButtonCard({href, text, icon}) {
+function LineButtonCard({href, text, icon, size="medium"}) {
     const theme = useTheme();
 
     return (
@@ -13,8 +13,8 @@ function LineButtonCard({href, text, icon}) {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        width: theme.spacing(8),
-                        height: theme.spacing(8),
+                        width: theme.spacing(size === "big" ? 12 : 8),
+                        height: theme.spacing(size === "big" ? 12 : 8),
                         backgroundColor: theme.palette.primary.main,
                         color: theme.palette.background.paper,
                     }}
@@ -22,7 +22,9 @@ function LineButtonCard({href, text, icon}) {
                     {icon}
                 </CardMedia>
                 <CardContent>
-                    {text}
+                    <Typography variant={size === "big" ? "h5" : "body1"} mx={2}>
+                        {text}
+                    </Typography>
                 </CardContent>
             </CardActionArea>
         </Card>
@@ -35,4 +37,5 @@ LineButtonCard.propTypes = {
     href: PropTypes.string,
     text: PropTypes.string,
     icon: PropTypes.element,
+    size: PropTypes.string,
 }
