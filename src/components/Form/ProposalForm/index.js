@@ -6,7 +6,7 @@ import {withUser} from "../../../contexts/userContext";
 
 
 async function handleClick(youtubeUrl, user) {
-    return await Api.post('api/proposals', {youtube_url: youtubeUrl, proposed_by: user.username})
+    return await Api.post('api/proposals/', {youtube_url: youtubeUrl, proposed_by: user.username})
         .then(response => { return response })
         .catch(error => { throw error.response });
 }
@@ -46,7 +46,7 @@ function ProposalForm({user}) {
         return (
             <>
                 <Typography variant={"h6"} mb={3}>
-                    Tu dois te connecter pour soumettre des propositions !
+                    Tu dois te connecter pour soumettre des propositions
                 </Typography>
                 <Button href={"/login"} variant={"contained"} fullWidth>
                     Se connecter
