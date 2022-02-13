@@ -30,18 +30,13 @@ function BrowserApp(props) {
                 >
                     <List>
                         <ListItem>
-                            <Grid container flexDirection={"row"} spacing={2} alignItems={"center"} component={"a"} href={"/"}>
-                                <Grid item>
-                                    <img src={"logo512-white.png"} alt={"Karaoke OK"} height={36} />
-                                </Grid>
-                                <Grid item>
-                                    <img
-                                        src={"brand-white.png"}
-                                        alt={"KaraokeOK"}
-                                        height={30}
-                                    />
-                                </Grid>
-                            </Grid>
+                            <Box component={"a"} href={"/"}>
+                                <img
+                                    src={"brand-white.png"}
+                                    alt={"KaraokeOK"}
+                                    height={30}
+                                />
+                            </Box>
                         </ListItem>
                         <ListItemButton
                             component={"a"}
