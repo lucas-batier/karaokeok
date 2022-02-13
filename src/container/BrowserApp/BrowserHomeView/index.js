@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, useTheme, Grid, Typography} from "@mui/material";
 import BrowserApp from "../index";
-import {LibraryMusicRounded, AddReactionRounded, LoginRounded} from "@mui/icons-material";
+import {LibraryMusicRounded} from "@mui/icons-material";
 import LineButtonCard from "../../../components/LineButtonCard";
 
 
@@ -17,7 +17,7 @@ function BrowserHomeView() {
                             L'application communautaire avec des karaokes vérifiés !
                         </Typography>
                         <Typography paragraph ml={6} textAlign={"justify"}>
-                            - Accéder à une bibliothèque de presque 300 karaoke vérifiés<br/>
+                            - Accéder à une bibliothèque de presque 300 karaokes vérifiés<br/>
                             - Proposer de nouveaux karaokes qui seront validés par l'équipe<br/>
                             - Créer vos playlist pour préparer vos soirées&nbsp;
                             <Typography component={"span"} fontStyle={"italic"}>

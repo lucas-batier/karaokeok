@@ -58,7 +58,7 @@ function ProposalForm({user}) {
     return (
         <>
             <Typography mb={theme.spacing(1)} variant={"h6"}>
-                Propose un nouveau Karaoke grâce à un lien YouTube !
+                Propose un nouveau karaoke grâce à un lien YouTube
             </Typography>
             <Typography mb={theme.spacing(6)} fontStyle={'italic'} color={theme.palette.primary.main}>
                 La vidéo peut contenir le chant, notre algorithme saura le filtrer

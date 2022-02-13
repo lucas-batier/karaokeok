@@ -44,7 +44,7 @@ function SongCard({song}) {
                             color={theme.palette.background.paper}
                         />
                         <Box position={"absolute"} textAlign={"center"}>
-                            <Typography style={{fontWeight: 600}}>
+                            <Typography variant={"body2"}>
                                 {song.title}
                             </Typography>
                             <Typography color={"textSecondary"} variant={"caption"}>

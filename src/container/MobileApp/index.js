@@ -6,7 +6,7 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
-import {HomeRounded, LibraryMusicRounded} from "@mui/icons-material";
+import {HomeRounded, LibraryMusicRounded, AddReactionRounded} from "@mui/icons-material";
 import UserLoginIconButton from "../../components/UserLoginIconButton";
 
 
@@ -14,9 +14,12 @@ function MobileApp(props) {
     return (
         <Grid container>
             <Grid item m={2} xs={12}>
-                <Typography variant={"h5"}>
-                    {props.title}
-                </Typography>
+                <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                    <Typography variant={"h5"}>
+                        {props.title}
+                    </Typography>
+                    <UserLoginIconButton />
+                </Box>
             </Grid>
             <Grid item xs={12}>
                 {props.children}
@@ -42,6 +45,14 @@ function MobileApp(props) {
                         </Box>
                     </ButtonBase>
                     <Box sx={{ flexGrow: 1 }} />
+                    <ButtonBase component={"a"} href={"/proposal"} disableTouchRipple>
+                        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+                            <AddReactionRounded />
+                            <Typography variant={"caption"}>
+                                Propositions
+                            </Typography>
+                        </Box>
+                    </ButtonBase>
                     {/*<ButtonBase component={"a"} href={"/playlist"} disableTouchRipple>*/}
                     {/*    <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>*/}
                     {/*        <SubscriptionsRounded/>*/}
@@ -51,7 +62,6 @@ function MobileApp(props) {
                     {/*    </Box>*/}
                     {/*</ButtonBase>*/}
                     {/*<Box sx={{ flexGrow: 1 }} />*/}
-                    <UserLoginIconButton />
                 </Toolbar>
             </AppBar>
         </Grid>

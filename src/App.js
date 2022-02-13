@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useEffect, useState} from "react";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import "@fontsource/dosis";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {BrowserView, MobileView} from "react-device-detect";
 import BrowserHomeView from "./container/BrowserApp/BrowserHomeView";
@@ -40,6 +41,30 @@ const theme = createTheme({
         secondary: {
             main: '#000000',
         },
+    },
+    typography: {
+        body1: {
+            fontWeight: 500,
+            letterSpacing: '0.05rem',
+        },
+        body2: {
+            fontSize: 16,
+            fontWeight: 900,
+            letterSpacing: '0.05rem',
+        },
+        fontFamily: [
+            'Dosis',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
     },
 });
 

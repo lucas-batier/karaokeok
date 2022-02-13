@@ -13,7 +13,7 @@ function MobileProposalView() {
     const theme = useTheme();
 
     return (
-        <MobileApp title={'Proposition'}>
+        <MobileApp title={'Propositions'}>
             <Box mx={2} mt={3}>
                 <Paper style={{padding: theme.spacing(3)}}>
                     <ProposalForm />

@@ -51,7 +51,14 @@ function BrowserApp(props) {
                             <ListItemIcon>
                                 <HomeRounded />
                             </ListItemIcon>
-                            <ListItemText primary={'Accueil'} style={{whiteSpace: "nowrap"}} />
+                            <ListItemText
+                                disableTypography
+                                primary={
+                                    <Typography variant={"body2"} noWrap>
+                                        Accueil
+                                    </Typography>
+                                }
+                            />
                         </ListItemButton>
                         <ListItemButton
                             component={"a"}
@@ -61,13 +68,27 @@ function BrowserApp(props) {
                             <ListItemIcon>
                                 <LibraryMusicRounded />
                             </ListItemIcon>
-                            <ListItemText primary={'Bibliothèque'} style={{whiteSpace: "nowrap"}} />
+                            <ListItemText
+                                disableTypography
+                                primary={
+                                    <Typography variant={"body2"} noWrap>
+                                        Bibliothèque
+                                    </Typography>
+                                }
+                            />
                         </ListItemButton>
                         {/*<ListItemButton component={"a"} href={"/playlist"} style={{borderRadius: theme.shape.borderRadius, margin: theme.spacing(1)}}>*/}
                         {/*    <ListItemIcon>*/}
                         {/*        <SubscriptionsRounded />*/}
                         {/*    </ListItemIcon>*/}
-                        {/*    <ListItemText primary={'Vos playlists'} style={{whiteSpace: "nowrap"}} />*/}
+                        {/*    <ListItemText*/}
+                        {/*        disableTypography*/}
+                        {/*        primary={*/}
+                        {/*            <Typography variant={"body2"} noWrap>*/}
+                        {/*                Vos playlists*/}
+                        {/*            </Typography>*/}
+                        {/*        }*/}
+                        {/*    />*/}
                         {/*</ListItemButton>*/}
                         <ListItemButton
                             component={"a"}
@@ -77,7 +98,14 @@ function BrowserApp(props) {
                             <ListItemIcon>
                                 <AddReactionRounded />
                             </ListItemIcon>
-                            <ListItemText primary={'Propositions'} style={{whiteSpace: "nowrap"}} />
+                            <ListItemText
+                                disableTypography
+                                primary={
+                                    <Typography variant={"body2"} noWrap>
+                                        Propositions
+                                    </Typography>
+                                }
+                            />
                         </ListItemButton>
                     </List>
                     <div style={{flex: 1}} />

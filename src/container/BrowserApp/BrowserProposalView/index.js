@@ -13,7 +13,7 @@ function BrowserProposalView() {
     const theme = useTheme();
 
     return (
-        <BrowserApp title={'Proposition'}>
+        <BrowserApp title={'Propositions'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
                     <ProposalForm />

@@ -1,5 +1,5 @@
 import {withUser} from "../../contexts/userContext";
-import {LoginRounded, AccountCircleRounded} from "@mui/icons-material";
+import {AccountCircleRounded} from "@mui/icons-material";
 import {
     ButtonBase,
     Box,
@@ -8,27 +8,9 @@ import {
 import {userShape} from "../../models/users";
 
 function UserLoginIconButton({user}) {
-    if (user.id) {
-        return (
-            <ButtonBase component={"a"} href={"/account"} disableTouchRipple>
-                <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                    <AccountCircleRounded />
-                    <Typography variant={"caption"}>
-                        {user.fullName}
-                    </Typography>
-                </Box>
-            </ButtonBase>
-        );
-    }
-
     return (
-        <ButtonBase component={"a"} href={"/login"} disableTouchRipple>
-            <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                <LoginRounded />
-                <Typography variant={"caption"}>
-                    Se connecter
-                </Typography>
-            </Box>
+        <ButtonBase component={"a"} href={user.id ? "/account" : "/login"} disableTouchRipple>
+            <AccountCircleRounded />
         </ButtonBase>
     )
 }
