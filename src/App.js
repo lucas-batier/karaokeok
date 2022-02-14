@@ -102,22 +102,6 @@ function App() {
         }
     }, [setUser]);
 
-    const production = process.env.NODE_ENV === 'production';
-
-    if (production) {
-        return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <BrowserView>
-                    <BrowserTeasingView />
-                </BrowserView>
-                <MobileView>
-                    <MobileTeasingView />
-                </MobileView>
-            </ThemeProvider>
-        )
-    }
-
     return (
         <userContext.Provider value={user}>
             <ThemeProvider theme={theme}>
