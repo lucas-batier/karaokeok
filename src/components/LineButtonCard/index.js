@@ -15,7 +15,7 @@ function LineButtonCard({href, text, icon, size="medium"}) {
                         justifyContent: "center",
                         width: theme.spacing(size === "big" ? 12 : 8),
                         height: theme.spacing(size === "big" ? 12 : 8),
-                        backgroundColor: theme.palette.primary.main,
+                        background: `linear-gradient(to right bottom, ${theme.palette.primary.main} 50%, ${theme.palette.primary.light})`,
                         color: theme.palette.background.paper,
                     }}
                 >

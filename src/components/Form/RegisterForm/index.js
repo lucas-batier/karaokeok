@@ -13,6 +13,7 @@ import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {errorMessage, responseOk} from "../../../libs/api/errors";
+import {genericErrorText} from "../../../translations";
 
 
 async function handleClick(firstName, lastName, username, password, passwordConfirmation) {
@@ -48,11 +49,11 @@ function RegisterForm() {
             handleClick(firstName, lastName, email, password, passwordConfirmation)
                 .then()
                 .catch(response => {
-                    if (response.status === 400) {
+                    if (response?.status === 400) {
                         setHelperErrors(response.data);
                     }
                     else {
-                        setGenericErrors(errorMessage(response));
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
                     }
                 })
                 .finally(() => setLoading(false));

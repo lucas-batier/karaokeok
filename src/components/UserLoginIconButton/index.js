@@ -2,8 +2,6 @@ import {withUser} from "../../contexts/userContext";
 import {AccountCircleRounded} from "@mui/icons-material";
 import {
     ButtonBase,
-    Box,
-    Typography,
 } from "@mui/material";
 import {userShape} from "../../models/users";
 

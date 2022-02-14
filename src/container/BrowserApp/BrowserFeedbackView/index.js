@@ -5,21 +5,21 @@ import {
     Paper,
     useTheme,
 } from "@mui/material";
-import ProposalForm from "../../../components/Form/ProposalForm";
+import FeedbackForm from "../../../components/Form/FeedbackForm";
 
 
-function BrowserProposalView() {
+function BrowserFeedbackView() {
     const theme = useTheme();
 
     return (
-        <BrowserApp title={'Propositions'}>
+        <BrowserApp title={'Avis'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
-                    <ProposalForm />
+                    <FeedbackForm />
                 </Paper>
             </Box>
         </BrowserApp>
     );
 }
 
-export default BrowserProposalView;
+export default BrowserFeedbackView;

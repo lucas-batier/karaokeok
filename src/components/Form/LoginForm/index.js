@@ -16,6 +16,7 @@ import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {useLinkStyles} from "../../../styles/link";
 import {errorMessage} from "../../../libs/api/errors";
+import {genericErrorText} from "../../../translations";
 
 
 async function handleConnectionButtonClick(username, password, remainConnection) {
@@ -24,7 +25,6 @@ async function handleConnectionButtonClick(username, password, remainConnection)
         .catch(error => { throw error.response });
 }
 
-// @todo ajouter mot de passe oublié avec envoie d'email etc...
 function LoginForm() {
     const linkClasses = useLinkStyles();
 
@@ -45,11 +45,11 @@ function LoginForm() {
             handleConnectionButtonClick(email, password, remainConnection)
                 .then(() => window.location.replace('/'))
                 .catch(response => {
-                    if (response.status === 400) {
+                    if (response?.status === 400) {
                         setHelperErrors(response.data);
                     }
                     else {
-                        setGenericErrors(errorMessage(response));
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
                     }
                 })
                 .finally(() => setLoading(false));

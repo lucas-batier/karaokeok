@@ -1,8 +1,9 @@
 import React from "react";
 import MobileApp from "../index";
-import {Box, useTheme, Typography} from "@mui/material";
+import {Box, useTheme} from "@mui/material";
 import {LibraryMusicRounded} from "@mui/icons-material";
 import LineButtonCard from "../../../components/LineButtonCard";
+import HomeText from "../../../components/HomeText";
 
 
 function MobileHomeView() {
@@ -11,17 +12,7 @@ function MobileHomeView() {
     return (
         <MobileApp title={"KaraokeOK"}>
             <Box m={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-                <Typography variant={"h6"} paragraph fontWeight={900}>
-                    L'application communautaire avec des karaokes vérifiés !
-                </Typography>
-                <Typography paragraph ml={1} mb={3} textAlign={"justify"}>
-                    - Accéder à une bibliothèque de presque 300 karaokes vérifiés<br/>
-                    - Proposer de nouveaux karaokes qui seront validés par l'équipe<br/>
-                    - Créer vos playlist pour préparer vos soirées&nbsp;
-                    <Typography component={"span"} fontStyle={"italic"}>
-                        (disponible au printemps)
-                    </Typography>
-                </Typography>
+                <HomeText />
                 <LineButtonCard
                     href={"/songs"}
                     text={"Bibliothèque"}

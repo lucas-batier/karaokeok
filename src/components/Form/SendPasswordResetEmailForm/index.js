@@ -33,7 +33,7 @@ function SendPasswordResetEmailForm() {
             handleClick(email, emailConfirmation)
                 .then(response => {
                     if (responseOk(response)) {
-                        setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`)
+                        setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`);
                     }
                 })
                 .catch(errors => {

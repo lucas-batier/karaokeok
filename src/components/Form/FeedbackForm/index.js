@@ -3,18 +3,19 @@ import {Button, Grid, TextField, Snackbar, CircularProgress, Alert, Typography, 
 import Api from "../../../libs/api/client";
 import {errorMessage, responseOk} from "../../../libs/api/errors";
 import {withUser} from "../../../contexts/userContext";
+import {genericErrorText} from "../../../translations";
 
 
-async function handleClick(youtubeUrl, user) {
-    return await Api.post('api/proposals/', {youtube_url: youtubeUrl, created_by: user.username})
+async function handleClick(comment, user) {
+    return await Api.post('api/feedbacks/', {comment: comment, created_by: user?.username})
         .then(response => { return response })
         .catch(error => { throw error.response });
 }
 
-function ProposalForm({user}) {
+function FeedbackForm({user}) {
     const theme = useTheme();
 
-    const [youtubeUrl, setYoutubeUrl] = useState('');
+    const [comment, setComment] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [genericErrors, setGenericErrors] = useState('');
@@ -25,55 +26,42 @@ function ProposalForm({user}) {
 
             setLoading(true);
 
-            handleClick(youtubeUrl, user)
+            handleClick(comment, user)
                 .then(response => {
                     if (responseOk(response)) {
-                        setSuccessMessage(`Ta proposition a été enregistrée, nous t'enverrons un mail lorsqu'elle sera traitée`);
+                        setComment('');
+                        setSuccessMessage(`Merci pour ton avis !`);
                     }
                 })
-                .catch(errors => {
-                    setGenericErrors(errorMessage(errors));
+                .catch(response => {
+                    response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
                 })
                 .finally(() => setLoading(false));
         },
-        [user, youtubeUrl]
+        [user, comment]
     );
 
     const handleCloseSuccess = () => setSuccessMessage('');
     const handleCloseErrors = () => setGenericErrors('');
 
-    if (0 === Object.keys(user).length) {
-        return (
-            <>
-                <Typography mb={theme.spacing(3)} variant={"h6"}>
-                    Tu dois te connecter pour soumettre des propositions
-                </Typography>
-                <Button href={"/login"} variant={"contained"} fullWidth>
-                    Se connecter
-                </Button>
-            </>
-        );
-    }
-
     return (
         <>
-            <Typography variant={"h6"}>
-                Propose un nouveau karaoke grâce à un lien YouTube
-            </Typography>
-            <Typography mb={theme.spacing(3)} fontStyle={'italic'} color={theme.palette.primary.main}>
-                La vidéo peut contenir le chant, notre algorithme saura le filtrer
+            <Typography mb={theme.spacing(3)} variant={"h6"}>
+                Donne nous ton avis sur l'application
             </Typography>
             <form onSubmit={onSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <TextField
                             variant={"outlined"}
-                            placeholder={'https://www.youtube.com/watch?v=njXQxWKpIcg'}
-                            label={'URL YouTube'}
+                            placeholder={'Je trouve cette application incroyable !'}
                             required
                             fullWidth
-                            value={youtubeUrl}
-                            onChange={evt => setYoutubeUrl(evt.target.value)}
+                            multiline
+                            rows={6}
+                            inputProps={{ maxLength: 2048 }}
+                            value={comment}
+                            onChange={evt => setComment(evt.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -97,4 +85,4 @@ function ProposalForm({user}) {
     );
 }
 
-export default withUser(ProposalForm);
+export default withUser(FeedbackForm);

@@ -4,7 +4,8 @@ import {
     Box, ButtonBase,
     Grid,
     Toolbar,
-    Typography
+    Typography,
+    Button,
 } from "@mui/material";
 import {HomeRounded, LibraryMusicRounded, AddReactionRounded} from "@mui/icons-material";
 import UserLoginIconButton from "../../components/UserLoginIconButton";
@@ -18,6 +19,14 @@ function MobileApp(props) {
                     <Typography variant={"h5"}>
                         {props.title}
                     </Typography>
+                    <Box sx={{ flexGrow: 1 }} />
+                    {process.env.REACT_APP_VERSION.includes('beta') &&
+                        <Box mx={3}>
+                            <Button component={"a"} href={"/feedback"} variant={"contained"}>
+                                Avis
+                            </Button>
+                        </Box>
+                    }
                     <UserLoginIconButton />
                 </Box>
             </Grid>

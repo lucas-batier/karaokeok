@@ -31,12 +31,15 @@ import BrowserChangePasswordView from "./container/BrowserApp/BrowserChangePassw
 import MobileChangePasswordView from "./container/MobileApp/MobileChangePasswordView";
 import BrowserProposalView from "./container/BrowserApp/BrowserProposalView";
 import MobileProposalView from "./container/MobileApp/MobileProposalView";
+import BrowserFeedbackView from "./container/BrowserApp/BrowserFeedbackView";
+import MobileFeedbackView from "./container/MobileApp/MobileFeedbackView";
 
 const theme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
             main: '#FFE169',
+            light: '#FFF0AE',
         },
         secondary: {
             main: '#000000',
@@ -51,6 +54,9 @@ const theme = createTheme({
             fontSize: 16,
             fontWeight: 900,
             letterSpacing: '0.05rem',
+        },
+        button: {
+            fontWeight: 800,
         },
         fontFamily: [
             'Dosis',
@@ -228,6 +234,16 @@ function App() {
                                 </BrowserView>
                                 <MobileView>
                                     <MobileProposalView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/feedback" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserFeedbackView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileFeedbackView />
                                 </MobileView>
                             </>
                         }/>

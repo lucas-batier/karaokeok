@@ -14,6 +14,7 @@ import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {useParams} from "react-router-dom";
 import {errorMessage, responseOk} from "../../../libs/api/errors";
+import {genericErrorText} from "../../../translations";
 
 
 async function handleClick(token, password, passwordConfirmation) {
@@ -57,11 +58,11 @@ function ResetPasswordForm() {
                     }
                 })
                 .catch(response => {
-                    if (response.status === 400) {
+                    if (response?.status === 400) {
                         setHelperErrors(response.data);
                     }
                     else {
-                        setGenericErrors(errorMessage(response));
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
                     }
                 })
                 .finally(() => setLoading(false));

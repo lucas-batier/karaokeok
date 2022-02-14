@@ -13,6 +13,7 @@ import {withUser} from "../../../contexts/userContext";
 import User, {userShape} from "../../../models/users";
 import {setCurrentUserInStorage} from "../../../libs/user";
 import {errorMessage} from "../../../libs/api/errors";
+import {genericErrorText} from "../../../translations";
 
 
 async function handleClick(id, firstName, lastName, username) {
@@ -50,11 +51,11 @@ function ProfileForm({user}) {
                     window.location.replace('/');
                 })
                 .catch(response => {
-                    if (response.status === 400) {
+                    if (response?.status === 400) {
                         setHelperErrors(response.data);
                     }
                     else {
-                        setGenericErrors(errorMessage(response));
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
                     }
                 })
                 .finally(() => setLoading(false));

@@ -1,0 +1,1 @@
+export const genericErrorText = 'Une erreur est apparue. Nos équipes viennent d\'être notifiées, nous allons la corriger au plus vite'
