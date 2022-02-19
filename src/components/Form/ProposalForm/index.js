@@ -34,7 +34,7 @@ function ProposalForm({user}) {
                     }
                 })
                 .catch(errors => {
-                    setGenericErrors(errorMessage(errors));
+                    setGenericErrors('Une erreur est apparue, vérifie le lien YouTube et réessaie');
                 })
                 .finally(() => setLoading(false));
         },

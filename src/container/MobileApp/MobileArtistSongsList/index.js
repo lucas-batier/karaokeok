@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import MobileApp from "../index";
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, CircularProgress, Grid, Typography} from "@mui/material";
 import SearchForm from "../../../components/Form/SearchForm";
 import Api from "../../../libs/api/client";
 import SongList from "../../../components/SongList";
@@ -12,6 +12,7 @@ function MobileArtistSongsList() {
     const [loading, setLoading] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [artists, setArtists] = useState([...new Set(songs?.map(song => song.artist))]);
+    const [nextUrl, setNextUrl] = useState('');
 
     useEffect(() => setArtists([...new Set(songs?.map(song => song.artist))]), [songs])
 
@@ -36,7 +37,22 @@ function MobileArtistSongsList() {
             setLoading(true);
             setDelayed(true);
         }
-    }, [searchText])
+    }, [searchText]);
+
+    // Add next songs while scrolling to the bottom of the page
+    window.onscroll = () => {
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 50)) {
+            if (nextUrl) {
+                Api.getRawUrl(nextUrl)
+                    .then(response => {
+                        setSongs([...songs, ...response.data.results]);
+                        setNextUrl(response.data.next);
+                    })
+                    .catch(response => console.error(response))
+                    .finally(() => { setLoading(false) });
+            }
+        }
+    }
 
     return (
         <MobileApp title={"Bibliothèque"}>
@@ -68,6 +84,11 @@ function MobileArtistSongsList() {
                         })}
                     </Grid>
             }
+            {Boolean(nextUrl) && (
+                <Box my={12} textAlign={"center"}>
+                    <CircularProgress size={"4rem"} />
+                </Box>
+            )}
         </MobileApp>
     );
 }

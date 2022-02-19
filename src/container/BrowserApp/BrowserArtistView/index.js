@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, CircularProgress, Grid, Typography} from "@mui/material";
 import BrowserApp from "../index";
 import SearchForm from "../../../components/Form/SearchForm";
 import Api from "../../../libs/api/client";
@@ -12,14 +12,18 @@ function BrowserArtistView() {
     const [loading, setLoading] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [artists, setArtists] = useState([...new Set(songs?.map(song => song.artist))]);
+    const [nextUrl, setNextUrl] = useState('');
 
     useEffect(() => setArtists([...new Set(songs?.map(song => song.artist))]), [songs])
 
     const onSearchSubmit = () => {
         setLoading(true);
 
-        Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
-            .then(response => setSongs(response.data.results))
+        Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
+            .then(response => {
+                setSongs(response.data.results);
+                setNextUrl(response.data.next);
+            })
             .catch(response => console.error(response))
             .finally(() => { setLoading(false) });
     }
@@ -27,8 +31,11 @@ function BrowserArtistView() {
     useEffect(() => {
         if (!delayed) {
             setTimeout(function delayHandler() {
-                Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
-                    .then(response => setSongs(response.data.results))
+                Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
+                    .then(response => {
+                        setSongs(response.data.results);
+                        setNextUrl(response.data.next);
+                    })
                     .catch(response => console.error(response))
                     .finally(() => { setLoading(false); setDelayed(false) });
             }, 500);
@@ -37,6 +44,21 @@ function BrowserArtistView() {
             setDelayed(true);
         }
     }, [searchText]);
+
+    // Add next songs while scrolling to the bottom of the page
+    window.onscroll = () => {
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 50)) {
+            if (nextUrl) {
+                Api.getRawUrl(nextUrl)
+                    .then(response => {
+                        setSongs([...songs, ...response.data.results]);
+                        setNextUrl(response.data.next);
+                    })
+                    .catch(response => console.error(response))
+                    .finally(() => { setLoading(false) });
+            }
+        }
+    }
 
     return (
         <BrowserApp title={'Bibliothèque'}>
@@ -70,6 +92,11 @@ function BrowserArtistView() {
                         })}
                 </Grid>
             }
+            {Boolean(nextUrl) && (
+                <Box my={12} textAlign={"center"}>
+                    <CircularProgress size={"4rem"} />
+                </Box>
+            )}
         </BrowserApp>
     );
 }
