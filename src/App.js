@@ -46,17 +46,18 @@ const theme = createTheme({
         },
     },
     typography: {
+        fontWeightLight: 500,
+        fontWeightRegular: 800,
+        fontWeightMedium: 900,
+        fontWeightBold: 1000,
         body1: {
-            fontWeight: 500,
             letterSpacing: '0.05rem',
         },
-        body2: {
-            fontSize: 16,
-            fontWeight: 900,
-            letterSpacing: '0.05rem',
+        h1: {
+            fontWeight: 1000,
         },
-        button: {
-            fontWeight: 800,
+        h2: {
+            fontWeight: 1000,
         },
         fontFamily: [
             'Dosis',

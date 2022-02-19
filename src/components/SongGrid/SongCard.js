@@ -44,10 +44,10 @@ function SongCard({song}) {
                             color={theme.palette.background.paper}
                         />
                         <Box position={"absolute"} textAlign={"center"}>
-                            <Typography variant={"body2"}>
+                            <Typography>
                                 {song.title}
                             </Typography>
-                            <Typography color={"textSecondary"} variant={"caption"}>
+                            <Typography color={"textSecondary"} variant={"body2"}>
                                 {song.artist}
                                 {song.featuring_artist?.map(featuring_artist => `, ${featuring_artist}`)}
                             </Typography>

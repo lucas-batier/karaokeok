@@ -33,7 +33,7 @@ function SearchForm({searchText, onSearchTextChange, onSearchSubmit}) {
                         value={searchText || ''}
                         onChange={evt => { onSearchTextChange(evt.target.value); }}
                         style={{width: "100%"}}
-                        placeholder={'Rechercher...'}
+                        placeholder={'Artiste ou musique...'}
                     />
                     {searchText && (
                         <>

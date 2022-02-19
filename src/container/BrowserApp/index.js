@@ -50,7 +50,7 @@ function BrowserApp(props) {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography variant={"body2"} noWrap>
+                                    <Typography noWrap>
                                         Accueil
                                     </Typography>
                                 }
@@ -67,7 +67,7 @@ function BrowserApp(props) {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography variant={"body2"} noWrap>
+                                    <Typography noWrap>
                                         Bibliothèque
                                     </Typography>
                                 }
@@ -80,7 +80,7 @@ function BrowserApp(props) {
                         {/*    <ListItemText*/}
                         {/*        disableTypography*/}
                         {/*        primary={*/}
-                        {/*            <Typography variant={"body2"} noWrap>*/}
+                        {/*            <Typography noWrap>*/}
                         {/*                Vos playlists*/}
                         {/*            </Typography>*/}
                         {/*        }*/}
@@ -97,7 +97,7 @@ function BrowserApp(props) {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography variant={"body2"} noWrap>
+                                    <Typography noWrap>
                                         Propositions
                                     </Typography>
                                 }
