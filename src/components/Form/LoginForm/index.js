@@ -15,7 +15,7 @@ import {VisibilityOffRounded, VisibilityRounded} from "@mui/icons-material";
 import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
 import {useLinkStyles} from "../../../styles/link";
-import {errorMessage} from "../../../libs/api/errors";
+import {errorMessage, responseOk} from "../../../libs/api/errors";
 import {genericErrorText} from "../../../translations";
 
 
@@ -32,9 +32,11 @@ function LoginForm() {
     const [password, setPassword] = useState('');
     const [remainConnection, setRemainConnection] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
+    const [waitForRedirection, setWaitForRedirection] = useState(false);
 
     const onSubmit = useCallback(
         (evt) => {
@@ -43,7 +45,17 @@ function LoginForm() {
             setHelperErrors({});
 
             handleConnectionButtonClick(email, password, remainConnection)
-                .then(() => window.location.replace('/'))
+                .then(response => {
+                    if (responseOk(response)) {
+                        setSuccessMessage(`Tu viens de te connecter avec succès, tu vas automatiquement être redirigé 
+                        vers la page d'acceuil dans 3 secondes`);
+                        setWaitForRedirection(true);
+                        setTimeout(() => {
+                            setWaitForRedirection(true);
+                            window.location.replace('/');
+                        }, 3000);
+                    }
+                })
                 .catch(response => {
                     if (response?.status === 400) {
                         setHelperErrors(response.data);
@@ -58,6 +70,7 @@ function LoginForm() {
     );
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleCloseSuccess = () => setSuccessMessage('');
     const handleCloseErrors = () => setGenericErrors('');
 
     return (
@@ -122,8 +135,13 @@ function LoginForm() {
                             </Grid>
                         </Grid>
                         <Grid item xs>
-                            <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
-                                {loading ? <CircularProgress size={"2rem"} /> : 'Se connecter'}
+                            <Button
+                                disabled={loading || waitForRedirection}
+                                type={"submit"}
+                                variant={"contained"}
+                                fullWidth
+                            >
+                                {(loading || waitForRedirection) ? <CircularProgress size={"2rem"} /> : 'Se connecter'}
                             </Button>
                         </Grid>
                     </Grid>
@@ -143,6 +161,11 @@ function LoginForm() {
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+                    {successMessage}
+                </Alert>
+            </Snackbar>
             <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
                 <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
                     {genericErrors}

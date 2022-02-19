@@ -17,15 +17,17 @@ import {genericErrorText} from "../../../translations";
 
 
 async function handleClick(firstName, lastName, username, password, passwordConfirmation) {
-    return await Api.register(firstName, lastName, username, password, passwordConfirmation)
-        .then(response => {
-            if (responseOk(response)) {
-                Api.login(username, password)
-                    .then(() => window.location.replace('/'))
-                    .catch(error => { throw error.response });
-            }
-        })
+    let response = await Api.register(firstName, lastName, username, password, passwordConfirmation)
+        .then()
         .catch(error => { throw error.response });
+
+    if (responseOk(response)) {
+        response = await Api.login(username, password)
+            .then()
+            .catch(error => { throw error.response });
+    }
+
+    return response
 }
 
 function RegisterForm() {
@@ -35,9 +37,11 @@ function RegisterForm() {
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
+    const [waitForRedirection, setWaitForRedirection] = useState(false);
 
     const onSubmit = useCallback(
         (evt) => {
@@ -47,7 +51,17 @@ function RegisterForm() {
             setHelperErrors({});
 
             handleClick(firstName, lastName, email, password, passwordConfirmation)
-                .then()
+                .then(response => {
+                    if (responseOk(response)) {
+                        setSuccessMessage(`Tu viens de te connecter avec succès, tu vas automatiquement être redirigé 
+                        vers la page d'acceuil dans 3 secondes`);
+                        setWaitForRedirection(true);
+                        setTimeout(() => {
+                            setWaitForRedirection(true);
+                            window.location.replace('/');
+                        }, 3000);
+                    }
+                })
                 .catch(response => {
                     if (response?.status === 400) {
                         setHelperErrors(response.data);
@@ -66,6 +80,7 @@ function RegisterForm() {
         setPasswordConfirmation(password);
     }, [password, showPassword]);
 
+    const handleCloseSuccess = () => setSuccessMessage('');
     const handleCloseErrors = () => setGenericErrors('');
 
     return (
@@ -157,11 +172,16 @@ function RegisterForm() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
-                        {loading ? <CircularProgress size={"2rem"} /> : 'Créer'}
+                    <Button disabled={loading || waitForRedirection} type={"submit"} variant={"contained"} fullWidth>
+                        {(loading || waitForRedirection) ? <CircularProgress size={"2rem"} /> : 'Créer'}
                     </Button>
                 </Grid>
             </Grid>
+            <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
+                    {successMessage}
+                </Alert>
+            </Snackbar>
             <Snackbar open={Boolean(genericErrors)} autoHideDuration={6000} onClose={handleCloseErrors}>
                 <Alert onClose={handleCloseErrors} severity="error" sx={{ width: '100%' }}>
                     {genericErrors}

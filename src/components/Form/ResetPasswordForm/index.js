@@ -48,7 +48,7 @@ function ResetPasswordForm() {
             handleClick(token, password, passwordConfirmation)
                 .then(response => {
                     if (responseOk(response)) {
-                        setSuccessMessage(`Ton mot de passe vient d'être modifié, tu vas automatiquement être rediriger 
+                        setSuccessMessage(`Ton mot de passe vient d'être modifié, tu vas automatiquement être redirigé 
                         vers la page de login dans 3 secondes`);
                         setWaitForRedirection(true);
                         setTimeout(() => {
