@@ -13,6 +13,8 @@ export function errorMessage(response) {
             return 'Connecte toi pour accéder à cette action';
         case 403:
             return 'Connecte toi pour accéder à cette action';
+        case 500:
+            return 'Une erreur est apparue, réessaye plus tard';
         default:
             return response.data[Object.keys(response.data)[0]];
     }

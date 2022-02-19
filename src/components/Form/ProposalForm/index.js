@@ -28,7 +28,9 @@ function ProposalForm({user}) {
             handleClick(youtubeUrl, user)
                 .then(response => {
                     if (responseOk(response)) {
-                        setSuccessMessage(`Ta proposition a été enregistrée, nous t'enverrons un mail lorsqu'elle sera traitée`);
+                        setSuccessMessage(`Ta proposition a été enregistrée, nous t'enverrons un mail lorsqu'elle sera 
+                        traitée`);
+                        setYoutubeUrl('');
                     }
                 })
                 .catch(errors => {
