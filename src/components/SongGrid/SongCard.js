@@ -43,7 +43,7 @@ function SongCard({song}) {
                             style={{width: 150, height: 150, opacity: 0.3}}
                             color={theme.palette.background.paper}
                         />
-                        <Box position={"absolute"} textAlign={"center"}>
+                        <Box mx={1} position={"absolute"} textAlign={"center"}>
                             <Typography>
                                 {song.title}
                             </Typography>
