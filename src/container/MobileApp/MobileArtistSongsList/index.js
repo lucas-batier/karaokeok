@@ -19,7 +19,7 @@ function MobileArtistSongsList() {
     const onSearchSubmit = () => {
         setLoading(true);
 
-        Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
+        Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
             .then(response => setSongs(response.data.results))
             .catch(response => console.error(response))
             .finally(() => { setLoading(false) });
@@ -28,7 +28,7 @@ function MobileArtistSongsList() {
     useEffect(() => {
         if (!delayed) {
             setTimeout(function delayHandler() {
-                Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
+                Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
                     .then(response => setSongs(response.data.results))
                     .catch(response => console.error(response))
                     .finally(() => { setLoading(false); setDelayed(false); });
@@ -41,7 +41,7 @@ function MobileArtistSongsList() {
 
     // Add next songs while scrolling to the bottom of the page
     window.onscroll = () => {
-        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 50)) {
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 200)) {
             if (nextUrl) {
                 Api.getRawUrl(nextUrl)
                     .then(response => {

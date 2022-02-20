@@ -38,9 +38,13 @@ function SongCard({song}) {
                 {!play ? (
                     <>
                         <img
-                            src={song.thumbnail_url}
+                            src={song.thumbnail_url ? song.thumbnail_url : "logo192-black.png"}
                             alt={song.title}
-                            style={{width: 150, height: 150, opacity: 0.3}}
+                            style={{
+                                width: song.thumbnail_url ? 150 : 100,
+                                height: song.thumbnail_url ? 150 : 100,
+                                opacity: 0.3
+                            }}
                             color={theme.palette.background.paper}
                         />
                         <Box mx={1} position={"absolute"} textAlign={"center"}>
