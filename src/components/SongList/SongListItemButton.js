@@ -35,7 +35,7 @@ function SongListItemButton({song}) {
         !play ? (
             <ListItemButton component={"a"} href={song.youtube_url} disableRipple disableGutters>
                 <ListItemIcon>
-                    <img src={song.thumbnail_url} alt={song.title} title={song.title} width={50}/>
+                    <img src={song.thumbnail_url} alt={song.title} title={song.title} width={50} height={50}/>
                 </ListItemIcon>
                 <ListItemText primary={song.title} secondary={song.artist} style={{marginLeft: theme.spacing(1)}}/>
             </ListItemButton>
