@@ -19,8 +19,11 @@ function MobileArtistSongsList() {
     const onSearchSubmit = () => {
         setLoading(true);
 
-        Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
-            .then(response => setSongs(response.data.results))
+        Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
+            .then(response => {
+                setSongs(response.data.results);
+                setNextUrl(response.data.next);
+            })
             .catch(response => console.error(response))
             .finally(() => { setLoading(false) });
     }
@@ -28,8 +31,11 @@ function MobileArtistSongsList() {
     useEffect(() => {
         if (!delayed) {
             setTimeout(function delayHandler() {
-                Api.get('api/songs', {}, ['artist__name', 'title'], searchText)
-                    .then(response => setSongs(response.data.results))
+                Api.get('api/songs', {}, ['artist__name', 'title'], searchText, 25)
+                    .then(response => {
+                        setSongs(response.data.results);
+                        setNextUrl(response.data.next);
+                    })
                     .catch(response => console.error(response))
                     .finally(() => { setLoading(false); setDelayed(false); });
             }, 500);
@@ -41,7 +47,7 @@ function MobileArtistSongsList() {
 
     // Add next songs while scrolling to the bottom of the page
     window.onscroll = () => {
-        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 200)) {
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 500)) {
             if (nextUrl) {
                 Api.getRawUrl(nextUrl)
                     .then(response => {
@@ -85,8 +91,8 @@ function MobileArtistSongsList() {
                     </Grid>
             }
             {Boolean(nextUrl) && (
-                <Box my={12} textAlign={"center"}>
-                    <CircularProgress size={"4rem"} />
+                <Box my={6} textAlign={"center"}>
+                    <CircularProgress size={"2rem"} />
                 </Box>
             )}
         </MobileApp>

@@ -47,7 +47,7 @@ function BrowserArtistView() {
 
     // Add next songs while scrolling to the bottom of the page
     window.onscroll = () => {
-        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 200)) {
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= (document.body.offsetHeight - 500)) {
             if (nextUrl) {
                 Api.getRawUrl(nextUrl)
                     .then(response => {
