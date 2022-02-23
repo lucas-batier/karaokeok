@@ -58,7 +58,7 @@ function UserLoginListItemButton({user}) {
                         <ListItemIcon>
                             <AccountCircleRounded fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText>Comptes</ListItemText>
+                        <ListItemText>Compte</ListItemText>
                     </MenuItem>
                     <MenuItem component={"a"} href={"/legals"}>
                         <ListItemIcon>

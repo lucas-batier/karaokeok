@@ -19,7 +19,7 @@ function MobileSettingsView({user}) {
                         <ListItemIcon>
                             <AccountCircleRounded />
                         </ListItemIcon>
-                        <ListItemText primary={'Comptes'} />
+                        <ListItemText primary={'Compte'} />
                     </ListItemButton>
                     <ListItemButton component={"a"} href={"/legals"} disableRipple>
                         <ListItemIcon>

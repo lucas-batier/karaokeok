@@ -125,8 +125,10 @@ function BrowserApp(props) {
                             }
                         </Box>
                     </Grid>
-                    <Grid item xs={12} m={3}>
-                        {props.children}
+                    <Grid item xs={12}>
+                        <Box m={3}>
+                            {props.children}
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>

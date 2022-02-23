@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import {Button, Grid, TextField, Snackbar, CircularProgress, Alert, Typography, useTheme} from "@mui/material";
 import Api from "../../../libs/api/client";
-import {errorMessage, responseOk} from "../../../libs/api/errors";
+import {responseOk} from "../../../libs/api/errors";
 import {withUser} from "../../../contexts/userContext";
 
 
@@ -43,19 +43,6 @@ function ProposalForm({user}) {
 
     const handleCloseSuccess = () => setSuccessMessage('');
     const handleCloseErrors = () => setGenericErrors('');
-
-    if (0 === Object.keys(user).length) {
-        return (
-            <>
-                <Typography mb={theme.spacing(3)} variant={"h6"}>
-                    Tu dois te connecter pour soumettre des propositions
-                </Typography>
-                <Button href={"/login"} variant={"contained"} fullWidth>
-                    Se connecter
-                </Button>
-            </>
-        );
-    }
 
     return (
         <>
