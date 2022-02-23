@@ -5,20 +5,21 @@ import {
     Paper,
     useTheme,
 } from "@mui/material";
+import ProposalForm from "../../../components/Form/ProposalForm";
 
 
-function MobileProposalView() {
+function MobileAddProposalView() {
     const theme = useTheme();
 
     return (
         <MobileApp title={'Propositions'}>
             <Box mx={2} mt={3}>
                 <Paper style={{padding: theme.spacing(3)}}>
-                    Proposal table
+                    <ProposalForm />
                 </Paper>
             </Box>
         </MobileApp>
     );
 }
 
-export default MobileProposalView;
+export default MobileAddProposalView;
