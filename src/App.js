@@ -35,6 +35,7 @@ import BrowserFeedbackView from "./container/BrowserApp/BrowserFeedbackView";
 import MobileFeedbackView from "./container/MobileApp/MobileFeedbackView";
 import BrowserAddProposalView from "./container/BrowserApp/BrowserProposalView/BrowserAddProposalView";
 import MobileAddProposalView from "./container/MobileApp/MobileProposalView/MobileAddProposalView";
+import BrowserEditProposalView from "./container/BrowserApp/BrowserProposalView/BrowserEditProposalView";
 
 const theme = createTheme({
     palette: {
@@ -228,6 +229,16 @@ function App() {
                             <>
                                 <BrowserView>
                                     <BrowserAddProposalView />
+                                </BrowserView>
+                                <MobileView>
+                                    <MobileAddProposalView />
+                                </MobileView>
+                            </>
+                        }/>
+                        <Route path="/edit_proposal" element={
+                            <>
+                                <BrowserView>
+                                    <BrowserEditProposalView />
                                 </BrowserView>
                                 <MobileView>
                                     <MobileAddProposalView />

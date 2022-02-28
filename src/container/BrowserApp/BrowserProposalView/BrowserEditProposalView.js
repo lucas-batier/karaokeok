@@ -5,21 +5,21 @@ import {
     Paper,
     useTheme,
 } from "@mui/material";
-import AddProposalForm from "../../../components/Form/ProposalForm/AddProposalForm";
+import EditProposalForm from "../../../components/Form/ProposalForm/EditProposalForm";
 
 
-function BrowserAddProposalView() {
+function BrowserEditProposalView() {
     const theme = useTheme();
 
     return (
         <BrowserApp title={'Propositions'}>
             <Box mx={36}>
                 <Paper style={{padding: theme.spacing(6)}}>
-                    <AddProposalForm />
+                    <EditProposalForm />
                 </Paper>
             </Box>
         </BrowserApp>
     );
 }
 
-export default BrowserAddProposalView;
+export default BrowserEditProposalView;

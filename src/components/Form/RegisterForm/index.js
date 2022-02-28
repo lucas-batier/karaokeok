@@ -75,6 +75,8 @@ function RegisterForm() {
         [firstName, lastName, email, password, passwordConfirmation]
     );
 
+    console.log(helperErrors);
+
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword);
         setPasswordConfirmation(password);
@@ -161,6 +163,7 @@ function RegisterForm() {
                 <Grid item xs={12}>
                     <TextField
                         type={showPassword ? "text" : "password"}
+                        disabled={showPassword}
                         variant={"outlined"}
                         label={'Confirmation'}
                         error={Boolean(helperErrors?.password)}
