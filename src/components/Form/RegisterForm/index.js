@@ -75,8 +75,6 @@ function RegisterForm() {
         [firstName, lastName, email, password, passwordConfirmation]
     );
 
-    console.log(helperErrors);
-
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword);
         setPasswordConfirmation(password);

@@ -47,7 +47,7 @@ function AddProposalForm({user}) {
 
     return (
         <>
-            <Typography variant={"h6"}>
+            <Typography variant={"h6"} mb={theme.spacing(1)}>
                 Propose un nouveau karaoke grâce à un lien YouTube
             </Typography>
             <Typography mb={theme.spacing(3)} fontStyle={'italic'} color={theme.palette.primary.main}>

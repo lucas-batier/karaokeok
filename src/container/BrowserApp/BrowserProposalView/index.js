@@ -4,7 +4,7 @@ import {
     Box,
     Paper,
     useTheme,
-    Table, TableHead, TableRow, TableCell, TableBody, Button, Typography, TableContainer, ButtonBase, IconButton
+    Button, Typography, ButtonBase, IconButton
 } from "@mui/material";
 import {withUser} from "../../../contexts/userContext";
 import Api from "../../../libs/api/client";
@@ -16,13 +16,12 @@ import {
     EditRounded,
     AddReactionRounded
 } from "@mui/icons-material";
-import {useCellStyles} from "../../../styles/cell";
 import LineButtonCard from "../../../components/LineButtonCard";
+import ProposalTable from "../../../components/ProposalTable";
 
 
 function BrowserProposalView({user}) {
     const linkClasses = useLinkStyles();
-    const cellClasses = useCellStyles();
     const theme = useTheme();
     const [rows, setRows] = useState([]);
     const isUserConnected = (0 !== Object.keys(user).length);
@@ -96,11 +95,13 @@ function BrowserProposalView({user}) {
                 <Box mx={36}>
                     <Paper style={{padding: theme.spacing(6)}}>
                         <Typography mb={theme.spacing(3)} variant={"h6"}>
-                            Tu n'as pas encore envoyé de propositions, clique sur
-                            &nbsp;<Typography component={"span"} color={"primary"} variant={"h6"}>ajouter</Typography>
-                            &nbsp;pour envoyer ta première
+                            Tu n'as pas encore envoyé de propositions, clique sur&nbsp;
+                            <Typography component={"span"} color={"primary"} variant={"h6"}>Ajouter</Typography>&nbsp;
+                            pour envoyer ta première
                         </Typography>
-                        <LineButtonCard href={"/add_proposal"} text={"Ajouter"} icon={<AddReactionRounded />} />
+                        <Box display={"flex"} justifyContent={"center"}>
+                            <Button variant={"contained"} href={"/add_proposal"}>Ajouter</Button>
+                        </Box>
                     </Paper>
                 </Box>
             </BrowserApp>
@@ -110,54 +111,7 @@ function BrowserProposalView({user}) {
     return (
         <BrowserApp title={'Propositions'}>
             <Paper style={{padding: theme.spacing(6)}}>
-                <Box mb={3}>
-                    <Button component={"a"} href={"/add_proposal"} variant={"contained"}>
-                        Ajouter
-                    </Button>
-                </Box>
-                <TableContainer fullWidth sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell
-                                    className={cellClasses.stickyLeft}
-                                    style={{zIndex: 101, textAlign: "center"}}
-                                >
-                                    État
-                                </TableCell>
-                                <TableCell style={{width: "100%"}}>Proposition</TableCell>
-                                <TableCell
-                                    className={cellClasses.stickyRight}
-                                    style={{zIndex: 101, textAlign: "center"}}
-                                >
-                                    Action
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell
-                                        className={cellClasses.stickyLeft}
-                                        style={{zIndex: 100, textAlign: "center"}}
-                                    >
-                                        {row.state}
-                                    </TableCell>
-                                    <TableCell style={{width: "100%"}}>{row.youtubeUrl}</TableCell>
-                                    <TableCell
-                                        className={cellClasses.stickyRight}
-                                        style={{zIndex: 100, textAlign: "center"}}
-                                    >
-                                        {row.actionCell}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <ProposalTable rows={rows} />
             </Paper>
         </BrowserApp>
     );

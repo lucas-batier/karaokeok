@@ -53,7 +53,7 @@ function EditProposalForm() {
 
     return (
         <>
-            <Typography variant={"h6"}>
+            <Typography variant={"h6"} mb={theme.spacing(1)}>
                 Modifie ta proposition
             </Typography>
             <Typography mb={theme.spacing(3)} fontStyle={'italic'} color={theme.palette.primary.main}>
