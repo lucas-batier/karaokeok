@@ -30,7 +30,7 @@ function FeedbackForm({user}) {
                 .then(response => {
                     if (responseOk(response)) {
                         setComment('');
-                        setSuccessMessage(`Merci pour ton avis !`);
+                        setSuccessMessage(`Merci pour ton avis, il vient d'être envoyé à l'équipe !`);
                     }
                 })
                 .catch(response => {
