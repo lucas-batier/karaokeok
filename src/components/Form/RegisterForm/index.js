@@ -93,7 +93,7 @@ function RegisterForm() {
                         placeholder={'Freddy'}
                         label={'Prénom'}
                         error={Boolean(helperErrors?.first_name)}
-                        helperText={helperErrors?.first_name && <ErrorsLabel helperErrors={helperErrors.first_name} />}
+                        helperText={helperErrors?.first_name && <ErrorsLabel errors={helperErrors.first_name} />}
                         required
                         fullWidth
                         autoFocus
@@ -108,7 +108,7 @@ function RegisterForm() {
                         placeholder={'Mercury'}
                         label={'Nom'}
                         error={Boolean(helperErrors?.last_name)}
-                        helperText={helperErrors?.last_name && <ErrorsLabel helperErrors={helperErrors.last_name} />}
+                        helperText={helperErrors?.last_name && <ErrorsLabel errors={helperErrors.last_name} />}
                         required
                         fullWidth
                         value={lastName}
@@ -124,8 +124,8 @@ function RegisterForm() {
                         error={Boolean(helperErrors?.email || helperErrors?.username)}
                         helperText={
                             <>
-                                {(helperErrors?.email && <ErrorsLabel helperErrors={helperErrors.email} />)}
-                                {(helperErrors?.username && <ErrorsLabel helperErrors={helperErrors.username} />)}
+                                {(helperErrors?.email && <ErrorsLabel errors={helperErrors.email} />)}
+                                {(helperErrors?.username && <ErrorsLabel errors={helperErrors.username} />)}
                             </>
                         }
                         required
@@ -140,7 +140,7 @@ function RegisterForm() {
                         variant={"outlined"}
                         label={'Mot de passe'}
                         error={Boolean(helperErrors?.password)}
-                        helperText={helperErrors?.password && <ErrorsLabel helperErrors={helperErrors.password} />}
+                        helperText={helperErrors?.password && <ErrorsLabel errors={helperErrors.password} />}
                         required
                         fullWidth
                         value={password}

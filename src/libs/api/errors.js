@@ -12,7 +12,7 @@ export function errorMessage(response) {
         case 401:
             return 'Connecte toi pour accéder à cette action';
         case 403:
-            return 'Connecte toi pour accéder à cette action';
+            return 'Tu n\'est pas autorisé à accéder à cette ressource';
         case 500:
             return 'Une erreur est apparue, réessaye plus tard';
         default:
