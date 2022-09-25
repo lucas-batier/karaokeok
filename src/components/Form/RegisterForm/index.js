@@ -165,7 +165,7 @@ function RegisterForm() {
                         variant={"outlined"}
                         label={'Confirmation'}
                         error={Boolean(helperErrors?.password)}
-                        helperText={helperErrors?.password && <ErrorsLabel helperErrors={helperErrors.password} />}
+                        helperText={helperErrors?.password && <ErrorsLabel errors={helperErrors.password} />}
                         required
                         fullWidth
                         value={passwordConfirmation}
