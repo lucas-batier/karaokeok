@@ -2,7 +2,8 @@ import React, {useCallback, useState} from "react";
 import {Button, Grid, TextField, Snackbar, CircularProgress, Alert} from "@mui/material";
 import Api from "../../../libs/api/client";
 import ErrorsLabel from "../../ErrorsLabel";
-import {responseOk} from "../../../libs/api/errors";
+import {errorMessage, responseOk} from "../../../libs/api/errors";
+import { genericErrorText } from "../../../translations";
 
 
 async function handleClick(email, emailConfirmation) {
@@ -36,8 +37,13 @@ function SendPasswordResetEmailForm() {
                         setSuccessMessage(`Une email pour réinitialiser ton mot de passe a été envoyé à ${email}`);
                     }
                 })
-                .catch(errors => {
-                    setHelperErrors(errors.data); setGenericErrors(errors?.detail);
+                .catch(response => {
+                    if (response?.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
+                    }
                 })
                 .finally(() => setLoading(false));
         },

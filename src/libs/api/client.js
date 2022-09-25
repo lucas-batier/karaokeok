@@ -12,8 +12,8 @@ class Api {
         this.token = sessionStorage.getItem('token') || localStorage.getItem('token') || null;
     }
 
-    async get(url, filters=[], orders=[], search='', limit=1000, offset=0, withToken=true) {
-        const headers = (withToken && this.token) ? {"Authorization": `Token ${this.token}`} : {};
+    async get(url, filters=[], orders=[], search='', limit=1000, offset=0, withAuth=true) {
+        const headers = (withAuth && this.token) ? {"Authorization": `Token ${this.token}`} : {};
 
         const argFilters = Object.entries(filters).map(filter => filter.join('='));
         const argOrders = orders.length ? `ordering=${orders.join(',')}` : null;
@@ -30,8 +30,8 @@ class Api {
         });
     }
 
-    async getRawUrl(rawUrl, withToken=true) {
-        const headers = (withToken && this.token) ? {"Authorization": `Token ${this.token}`} : {};
+    async getRawUrl(rawUrl, withAuth=true) {
+        const headers = (withAuth && this.token) ? {"Authorization": `Token ${this.token}`} : {};
 
         return axios({
             url: rawUrl,
@@ -40,8 +40,8 @@ class Api {
         });
     }
 
-    async post(url, data={}, withToken=true) {
-        const headers = (withToken && this.token) ? {"Authorization": `Token ${this.token}`} : {};
+    async post(url, data={}, withAuth=true) {
+        const headers = (withAuth && this.token) ? {"Authorization": `Token ${this.token}`} : {};
 
         return axios({
             url: url,
@@ -83,7 +83,8 @@ class Api {
     }
 
     async register(firstName, lastName, username, password, passwordConfirmation) {
-        return this.post(`api/register/`,
+        return this.post(
+            `api/register/`,
             {
                 "first_name": firstName,
                 "last_name": lastName,
@@ -96,7 +97,8 @@ class Api {
     }
 
     async sendPasswordResetEmail(email) {
-        return this.post(`api/password_reset/`,
+        return this.post(
+            `api/password_reset/`,
             {
                 "email": email,
             },
@@ -105,7 +107,8 @@ class Api {
     }
 
     async resetPassword(token, password) {
-        return this.post(`api/password_reset/confirm/`,
+        return this.post(
+            `api/password_reset/confirm/`,
             {
                 "token": token,
                 "password": password,
