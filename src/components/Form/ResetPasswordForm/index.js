@@ -49,7 +49,7 @@ function ResetPasswordForm() {
                 .then(response => {
                     if (responseOk(response)) {
                         setSuccessMessage(`Ton mot de passe vient d'être modifié, tu vas automatiquement être redirigé 
-                        vers la page de login dans 3 secondes`);
+                        vers la page de login dans 3 secondes.`);
                         setWaitForRedirection(true);
                         setTimeout(() => {
                             setWaitForRedirection(true);

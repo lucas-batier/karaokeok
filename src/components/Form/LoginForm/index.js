@@ -48,7 +48,7 @@ function LoginForm() {
                 .then(response => {
                     if (responseOk(response)) {
                         setSuccessMessage(`Tu viens de te connecter avec succès, tu vas automatiquement être redirigé 
-                        vers la page d'acceuil dans 3 secondes`);
+                        vers la page d'acceuil dans 3 secondes.`);
                         setWaitForRedirection(true);
                         setTimeout(() => {
                             setWaitForRedirection(true);

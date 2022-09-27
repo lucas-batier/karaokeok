@@ -1,9 +1,10 @@
 import React, {useCallback, useState} from "react";
-import {Snackbar, Alert, Typography, useTheme} from "@mui/material";
+import {Snackbar, Alert, Typography, useTheme, Grid, TextField, Button, CircularProgress} from "@mui/material";
 import Api from "../../../libs/api/client";
-import {responseOk} from "../../../libs/api/errors";
+import {errorMessage, responseOk} from "../../../libs/api/errors";
 import {withUser} from "../../../contexts/userContext";
-import ProposalForm from "./index";
+import { genericErrorText } from "../../../translations";
+import ErrorsLabel from "../../ErrorsLabel";
 
 
 async function handleClick(youtubeUrl, user) {
@@ -18,24 +19,32 @@ function AddProposalForm({user}) {
     const [youtubeUrl, setYoutubeUrl] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [helperErrors, setHelperErrors] = useState({});
     const [genericErrors, setGenericErrors] = useState('');
+
 
     const onSubmit = useCallback(
         (evt) => {
             evt.preventDefault();
 
             setLoading(true);
+            setHelperErrors({});
 
             handleClick(youtubeUrl, user)
                 .then(response => {
                     if (responseOk(response)) {
                         setSuccessMessage(`Ta proposition a été enregistrée, nous t'enverrons un mail lorsqu'elle sera 
-                        traitée`);
+                        karaoketisée!`);
                         setYoutubeUrl('');
                     }
                 })
-                .catch(errors => {
-                    setGenericErrors('Une erreur est apparue, vérifie le lien YouTube et réessaie');
+                .catch(response => {
+                    if (response?.status === 400) {
+                        setHelperErrors(response.data);
+                    }
+                    else {
+                        response ? setGenericErrors(errorMessage(response)) : setGenericErrors(genericErrorText);
+                    }
                 })
                 .finally(() => setLoading(false));
         },
@@ -53,7 +62,28 @@ function AddProposalForm({user}) {
             <Typography mb={theme.spacing(3)} fontStyle={'italic'} color={theme.palette.primary.main}>
                 La vidéo peut contenir le chant, notre algorithme saura le filtrer
             </Typography>
-            <ProposalForm value={youtubeUrl} onChange={setYoutubeUrl} loading={loading} onSubmit={onSubmit} />
+            <form onSubmit={onSubmit}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant={"outlined"}
+                            placeholder={'https://www.youtube.com/watch?v=njXQxWKpIcg'}
+                            label={'URL YouTube'}
+                            error={Boolean(helperErrors?.youtube_url)}
+                            required
+                            fullWidth
+                            value={youtubeUrl}
+                            helperText={helperErrors?.youtube_url && <ErrorsLabel errors={helperErrors.youtube_url} />}
+                            onChange={evt => setYoutubeUrl(evt.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button disabled={loading} type={"submit"} variant={"contained"} fullWidth>
+                            {loading ? <CircularProgress size={"2rem"} /> : 'Envoyer'}
+                        </Button>
+                    </Grid>
+                </Grid>
+            </form>
             <Snackbar open={Boolean(successMessage)} autoHideDuration={6000} onClose={handleCloseSuccess}>
                 <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: '100%' }}>
                     {successMessage}

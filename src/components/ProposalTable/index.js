@@ -12,7 +12,7 @@ function ProposalTable({rows}) {
                     Ajouter
                 </Button>
             </Box>
-            <TableContainer fullWidth sx={{ maxHeight: 440 }}>
+            <TableContainer fullwidth="true" sx={{ maxHeight: 440 }}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
